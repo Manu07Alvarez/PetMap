@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@plugin "daisyui";
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F7F7F7;
+    color: #111827;
+}
+.btn-primary {
+    background-color: #4F46E5;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #4338CA;
+}
+.text-secondary {
+    color: #6B7280;
+}
+.border-detail {
+    border-color: #10B981;
+}
+.hover-detail:hover {
+    color: #F59E0B;
+}
+.active-link {
+    color: #4F46E5;
+    font-weight: 600;
+}

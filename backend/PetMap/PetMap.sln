@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetMap", "PetMap.csproj", "{5FDFF5F9-4DC5-0185-1BE3-1F17E4E14076}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FDFF5F9-4DC5-0185-1BE3-1F17E4E14076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FDFF5F9-4DC5-0185-1BE3-1F17E4E14076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FDFF5F9-4DC5-0185-1BE3-1F17E4E14076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FDFF5F9-4DC5-0185-1BE3-1F17E4E14076}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {854AE6AB-B9B0-4DA1-B416-0877A455F19E}
+	EndGlobalSection
+EndGlobal

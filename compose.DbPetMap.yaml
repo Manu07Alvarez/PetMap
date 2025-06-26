@@ -1,0 +1,38 @@
+services:
+  db-postgre:
+    image: apache/age
+    container_name: postgres_age_db_petmap
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: petmap
+    networks:
+      - petmap
+    ports:
+      - 5430:5432
+    volumes:
+      - petmap-db_pstgre_age:/var/lib/postgresql/data
+  db-visor:
+    image: adminer
+    container_name: adminer_express
+    ports:
+      - "8014:8080"
+    networks:
+      - petmap
+    depends_on:
+      db-postgre:
+        condition: service_started
+        restart: true
+    environment:
+      ADMINER_PLUGIN: 'table-indexes-structure tables-filter tinymce'
+      ADMINER_DESIGN: 'dracula'
+      ADMINER_DEFAULT_DB_DRIVER: pgsql
+      ADMINER_DEFAULT_USER: postgres
+      ADMINER_DEFAULT_USER_PASSWORD: postgres
+      ADMINER_DEFAULT_SERVER: db-postgre
+      ADMINER_DEFAULT_DB_NAME: petmap
+volumes:
+  petmap-db_pstgre_age:
+
+networks:
+  petmap:

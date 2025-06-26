@@ -1,0 +1,155 @@
+---
+import Layout from "../layouts/Layout-2.astro";
+---
+
+<Layout title="PetMap. Animales perdidos y encontrados">
+  <div
+    class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
+    style='--select-button-svg: url(&apos;data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(103,106,131)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e&apos;); font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
+  >
+    <div class="layout-container flex h-full grow flex-col">
+
+      <div class="gap-1 px-6 flex flex-1 justify-center py-5">
+        <div class="layout-content-container flex flex-col max-w-[920px] flex-1">
+          <div class="flex flex-wrap justify-between gap-3 p-4">
+            <p class="text-[#121217] tracking-light text-[32px] font-bold leading-tight min-w-72">Search for Lost Pets</p>
+          </div>
+          <h2 class="text-[#121217] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Search Results</h2>
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+            <div class="flex flex-col gap-3 pb-3">
+              <div
+                class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-xl"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuArx7RUwXyeEASJGdZCmqKyitRFvrlexDJPdLqKaHlnhiahStbSXiwzLXwmeczZHyeh45oEfFq3Eb_8iqUMyIzps1SHmSRTO9RLZL9qysDyHbATQtO-ZSbN3rieMRlr6_AeUe_u1HHuIVUd3m1lvDBggRjGTFnO8bWt5mcrg_xNFTCBafkHtEy_dQmp7_larY9hq8s9woFIRgycXKHqtqwgIKd5PsxMojDi8yUvfczBRCPn6npgJM8qcmMdRw990GITfwysxaJ6Qw");'
+              ></div>
+              <div>
+                <p class="text-[#121217] text-base font-medium leading-normal">Buddy</p>
+                <p class="text-[#676a83] text-sm font-normal leading-normal">Golden Retriever, Male, Lost near Central Park on 08/15/2023</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 pb-3">
+              <div
+                class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-xl"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDwxlgd7RyY-6k034tZCpX11_GJqAG_CwrPwn2TKZclqtZLQW07mrRO5ZEO2K7eJcE-paHo4Y6Vh0V20gYOOSRGi8vsrKT7_-ChNGDPbrVjIZytYVm3E2wf8V7I-rFa4aU4j2M5unbsbOcumjn6FE3_V4tUgOS5WD1h6TxkppxweKlAgDa8XOZABZhlSYkAo_N2TXK5Ibg28FGG8jviHQsxThQCBBO0CwPgCO-LzvNFDyEHt8rVvUTUjJXLQjlb2Ur_fIf6ERU0HA");'
+              ></div>
+              <div>
+                <p class="text-[#121217] text-base font-medium leading-normal">Max</p>
+                <p class="text-[#676a83] text-sm font-normal leading-normal">Labrador Retriever, Male, Lost near Riverside Park on 08/10/2023</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 pb-3">
+              <div
+                class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-xl"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCkrwEhBJU7g0RXV4gQIVOCu_69f7kZF6rsd4C6hr177OUuFy8qcjc2aX0NC2LIhVecG4Q_QTLfoiV8qHHXVa5gpmHAkCFHPo5GcVEwvrO7jvXgnYcxlWUdtEjpmxS4pZAfM1mo-Uk0A5h4DV7VRoNWcf9T4z-mLK22Cf38VK8JwCV47tGN09IkQ7Pyt0SScEtjKJQXF2ChBfPSPsrwChQrpUvVl7851Krf4d-8IzBCzrzi3zCa06Dg6Ylkb56y8CO6CvNidaLiwQ");'
+              ></div>
+              <div>
+                <p class="text-[#121217] text-base font-medium leading-normal">Charlie</p>
+                <p class="text-[#676a83] text-sm font-normal leading-normal">Beagle, Male, Lost near Prospect Park on 08/05/2023</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 pb-3">
+              <div
+                class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-xl"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVqk-FxRXAVs8HEDGqwVffuSC31dROBg6kycGFIch6gf3c1FaUuKg1BOgz7OskNytfQ6UAMC8GocppiCBF4kN2iqxs8ZhqywicT7XPCmpM6WPKrn02q1H5XItG4fq9QIGvny86v8o5opzMqabQOx-Uzq9tscGzIwy5L7XLXFq4T0Bv9F_p2kKx1NwmRx_bkpUzpx0thAHUgHBfQcBTOxFBt15MZf7LcVn8G9ZXI_XfW6Fa8WBImzk-ZpvM6o2KNBBgXGebgnzeFg");'
+              ></div>
+              <div>
+                <p class="text-[#121217] text-base font-medium leading-normal">Lucy</p>
+                <p class="text-[#676a83] text-sm font-normal leading-normal">Poodle, Female, Lost near Washington Square Park on 08/20/2023</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 pb-3">
+              <div
+                class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-xl"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAh76yaIqvZqRyThZaanRfFLsy86p2HD4GAGvrilZ0lo_Iv5i2z4v66ewO9t29he2Dh2MdXy42hSTd2hl7_NIRKi3yBlsMGWewiq21Sic5r-s_8NRHLE0ebiVQCmrZXUsY2iad0H60lozlR06CkvX1s_JsVTiEZjLvbhhU_WC8b9UGE5QWMPMABLOuyAl3d9ahXeWjWDOlPyWxtwCMXQ5rmpmX2MVmXf1Fji_gfyD-7lRtT7ZGlvyrmENZ5vTosVxcS08b4FZpvsg");'
+              ></div>
+              <div>
+                <p class="text-[#121217] text-base font-medium leading-normal">Daisy</p>
+                <p class="text-[#676a83] text-sm font-normal leading-normal">Bulldog, Female, Lost near Bryant Park on 08/18/2023</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 pb-3">
+              <div
+                class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-xl"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAMmKRNe01xc1Tt2wC69B0Qk29gfbs64BL0Z9qAn-XaxFegaK9qJZvbHUEmI6BoCaX6_bFwIK3dcVpn60kNv7ozNyOxYEBaVIhgK_K6oDevD_Gwkxsc3I3yqNpJZCf2ONNP-Jbe2_1YQ5EINRsE9tkY11EOiVOoLbqMEV6EVNxA-AqIbIldrtyBo0a51UAxavRAXbP7RguftvDWCEt_6ZT7f7n2Z6GjR4I1OH0fbgfOWwakaLKy4EtBxPAQymKhitX92DjsO71zDg");'
+              ></div>
+              <div>
+                <p class="text-[#121217] text-base font-medium leading-normal">Rocky</p>
+                <p class="text-[#676a83] text-sm font-normal leading-normal">Boxer, Male, Lost near Madison Square Park on 08/12/2023</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 pb-3">
+              <div
+                class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-xl"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCV8MIZ6508aLBQU0yuWuHSd_0m9iiLDHt0eYSWqD2QlG-hO6JxK5uc6yOGw1tbKNeldsYYO2bQRDW16dimhpHk7lmu_aEHrJ1dTU6taZfbmdY2f9ZMcrFzChur7-qA0Tg5znPTxNeqvbbdCgFuMd5ig0R7cieAKg4VgsCoDH5r-cLcTqPJ63iyoUy9KLDLTEdllqIF7DAWsQL1mN0BEw5gJjqYYJJ1WyMiOMxCOnycMcD0NDOe010XYBfdBMKTTkjqQ2KTqMOK1g");'
+              ></div>
+              <div>
+                <p class="text-[#121217] text-base font-medium leading-normal">Bella</p>
+                <p class="text-[#676a83] text-sm font-normal leading-normal">German Shepherd, Female, Lost near Union Square on 08/22/2023</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 pb-3">
+              <div
+                class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-xl"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD62W18UmQA5-Ows6sWI60zKeugUOT2GqSXxxeGx8wm4rpA22L--IMc6uuEj_dyunm_q2BYnslJJ00BaxYC-G1RQlWdN_r33nSORor2SeQxCDi0GNbdMWJ_bjO1MppvwZLD7-BmwVBJGEP4cnqkmCX2X7Q37PYJVxFZtBRdWNi2M689NEhoXw0xw9CcyMg8HcrSMsPDKvtPyKWIUgP4kgE5POimS1FIV-KB9lZ2qFjLWfoPdOamZtc96fp2jQrBmUS3-DeCV0pqgA");'
+              ></div>
+              <div>
+                <p class="text-[#121217] text-base font-medium leading-normal">Cooper</p>
+                <p class="text-[#676a83] text-sm font-normal leading-normal">French Bulldog, Male, Lost near Tompkins Square Park on 08/14/2023</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="layout-content-container flex flex-col w-[360px]">
+          <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+            <label class="flex flex-col min-w-40 flex-1">
+              <p class="text-[#121217] text-base font-medium leading-normal pb-2">Animal Type</p>
+              <select
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 bg-[image:--select-button-svg] placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal"
+              >
+                <option value="one"></option>
+                <option value="two">two</option>
+                <option value="three">three</option>
+              </select>
+            </label>
+          </div>
+          <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+            <label class="flex flex-col min-w-40 flex-1">
+              <p class="text-[#121217] text-base font-medium leading-normal pb-2">Breed</p>
+              <select
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 bg-[image:--select-button-svg] placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal"
+              >
+                <option value="one"></option>
+                <option value="two">two</option>
+                <option value="three">three</option>
+              </select>
+            </label>
+          </div>
+          <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+            <label class="flex flex-col min-w-40 flex-1">
+              <p class="text-[#121217] text-base font-medium leading-normal pb-2">Last Seen Location</p>
+              <input
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal"
+                value=""
+              />
+            </label>
+          </div>
+          <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+            <label class="flex flex-col min-w-40 flex-1">
+              <p class="text-[#121217] text-base font-medium leading-normal pb-2">Date Lost</p>
+              <input
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal"
+                value=""
+              />
+            </label>
+          </div>
+          <div class="flex px-4 py-3 justify-end">
+            <button
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#969ce3] text-[#121217] text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout> 

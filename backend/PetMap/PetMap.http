@@ -1,0 +1,6 @@
+@PetMap_HostAddress = http://localhost:5274
+
+GET {{PetMap_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

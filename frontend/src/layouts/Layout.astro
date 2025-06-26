@@ -1,0 +1,64 @@
+---
+import "../assets/app.css";
+import { Image } from "astro:assets";
+import petmap from '../assets/petmap.svg';
+---
+<style>
+	
+	body {
+			font-family: 'Inter', sans-serif;
+			background-color: #F7F7F7;
+			color: #111827;
+	}
+	.btn-primary {
+			background-color: #4F46E5;
+			color: white;
+	}
+	.btn-primary:hover {
+			background-color: #4338CA;
+	}
+	.text-secondary {
+			color: #111827;
+	}
+	.border-detail {
+			border-color: #10B981;
+	}
+	.hover-detail:hover {
+			color: #111827;
+	}
+	.active-link {
+			color: #4F46E5;
+			font-weight: 600;
+	}
+</style>
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/src/assets/petmap.svg" />
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet"/>
+    	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+	</head>
+	<body class="flex flex-col min-h-screen">
+		<header class="bg-white shadow-md sticky top-0 z-50">
+			<div class="container mx-auto px-6 py-4 flex items-center justify-between">
+				<a class="flex items-center space-x-3" href="#">
+					<Image alt="Logo de PetMap, un gato con una lupa sobre un perro" width={50} height={50} loading={"eager"} class="rounded-full transform scale-235 hover:scale-205 transition-transform duration-300" src={petmap}/>
+					<span class="text-2xl font-bold text-[#111827]">PetMap</span>
+				</a>
+				<nav class="space-x-6 flex items-center">
+					<a class="text-base text-secondary hover-detail active-link" href="#">Inicio</a>
+					<a class="text-base text-secondary hover-detail" href="#">Reportar Perdido</a>
+					<a class="text-base text-secondary hover-detail" href="#">Mascotas Encontradas</a>
+					<a class="text-base text-secondary hover-detail" href="#">Contacto</a>
+					<button class="btn-primary py-2 px-4 rounded-lg text-sm font-medium flex items-center space-x-2">
+						<span class="material-icons-outlined text-lg">person</span>
+						<span>Iniciar Sesión</span>
+					</button>
+				</nav>
+			</div>
+		</header>
+		<slot/>
+	</body>
+</html>

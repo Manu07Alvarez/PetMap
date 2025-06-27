@@ -38,27 +38,39 @@ import petmap from '../assets/petmap.svg';
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/src/assets/petmap.svg" />
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet"/>
-    	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 	</head>
-	<body class="flex flex-col min-h-screen">
-		<header class="bg-white shadow-md sticky top-0 z-50">
-			<div class="container mx-auto px-6 py-4 flex items-center justify-between">
-				<a class="flex items-center space-x-3" href="#">
-					<Image alt="Logo de PetMap, un gato con una lupa sobre un perro" width={50} height={50} loading={"eager"} class="rounded-full transform scale-235 hover:scale-205 transition-transform duration-300" src={petmap}/>
-					<span class="text-2xl font-bold text-[#111827]">PetMap</span>
-				</a>
-				<nav class="space-x-6 flex items-center">
-					<a class="text-base text-secondary hover-detail active-link" href="#">Inicio</a>
-					<a class="text-base text-secondary hover-detail" href="#">Reportar Perdido</a>
-					<a class="text-base text-secondary hover-detail" href="#">Mascotas Encontradas</a>
-					<a class="text-base text-secondary hover-detail" href="#">Contacto</a>
-					<button class="btn-primary py-2 px-4 rounded-lg text-sm font-medium flex items-center space-x-2">
-						<span class="material-icons-outlined text-lg">person</span>
-						<span>Iniciar Sesión</span>
-					</button>
-				</nav>
-			</div>
-		</header>
-		<slot/>
-	</body>
+  <body class="font-inter bg-white text-base-content flex flex-col min-h-screen">
+    <header class="navbar bg-white shadow-sm sticky top-0 z-50 px-10 py-3">
+      <div class="navbar-start gap-4">
+        <Image alt="Logo de PetMap, un gato con una lupa sobre un perro" width={50} height={50} loading={"eager"} class="rounded-full transform scale-220 hover:scale-205 transition-transform duration-300" src={petmap}/>
+        <span class="text-lg font-bold">PetMap</span>
+      </div>
+      <div class="navbar-center hidden lg:flex gap-4">
+        <a class="btn btn-ghost text-sm font-medium">Inicio</a>
+        <a class="btn btn-ghost text-sm font-medium">Buscar</a>
+        <a class="btn btn-ghost text-sm font-medium">Tips</a>
+        <a class="btn btn-ghost text-sm font-medium">Contactos</a>
+      </div>
+      <div class="navbar-end gap-4">
+        <label class="input input-bordered flex items-center gap-2 rounded-xl h-10 bg-base-200 text-sm w-64">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-base-content/50" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/>
+          </svg>
+          <input type="text" placeholder="Search" class="grow bg-transparent focus:outline-none"/>
+        </label>
+
+        <button class="btn btn-success rounded-full h-10 px-4 min-w-[84px] text-sm font-bold">
+          Post a Pet
+        </button>
+
+        <div
+          class="avatar placeholder size-10 rounded-full bg-cover bg-center"
+          style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBD2xBrixE4lL8TDhCyamHyhKumihXgyZZz1uMgjDJRH_obimoMA_zj5MD0thcYrySPaqwM7N6O5XHTmR9JuF8hk4taNRh3WPZfK1aLdFFsq3SQuZHS5IB-PRs3j46tLIQ7npxiHmeL-9rEIkh0v2Z-Ju0bNftbsMzRZmg4rlyT-Suka4hjqCR7J0X5ZlIP0T7X8fX-lU1A57kYsUS2fb0g5BjuYMQHENxIwbXmYWha_omklY-CkAzxRBZIO_Zp9eBSWrwW4K-980Ko");'
+        ></div>
+      </div>
+    </header>
+    
+    <slot />
+  </body>
 </html>

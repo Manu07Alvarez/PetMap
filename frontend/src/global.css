@@ -48,13 +48,7 @@ body {
     background-color: #F7F7F7;
     color: #111827;
 }
-.btn-primary {
-    background-color: #4F46E5;
-    color: white;
-}
-.btn-primary:hover {
-    background-color: #4338CA;
-}
+
 .text-secondary {
     color: #6B7280;
 }

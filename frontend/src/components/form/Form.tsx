@@ -4,7 +4,7 @@ import {
   valiForm$,
   useForm,
 } from '@modular-forms/qwik';
-import {PetsForm, useFormLoader, FormSchema, useFormAction} from './PetsFormLoader'
+import {PetsForm, useFormLoader, FormSchema, useFormAction} from '../PetsFormLoader'
 import * as v from 'valibot';
 import { Input } from './Input';
 import { TextInput } from './TextInput';
@@ -21,15 +21,12 @@ export default component$(() => {
   return (
     <Form>
       <fieldset class="fieldset">
-          <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="flex flex-1 justify-center py-5">
             <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-              <div class="flex flex-wrap justify-between gap-3 p-4"><p class="text-[#121217] tracking-light text-[32px] font-bold leading-tight min-w-72">Reportar Mascota</p></div>
+              <div class="flex flex-wrap justify-between gap-3 p-4"><p class="text-[#121217] tracking-light text-[32px] font-bold leading-tight min-w-72">Informacion Mascota</p></div>
               <div class="p-4 @container">
                 <div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start">
                   <div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1 py-4 @xl:px-4">
-                    <legend class="fieldset-legend">
-                      <p class="text-[#121217] text-lg font-bold leading-tight tracking-[-0.015em]">Informacion de la Mascota</p>
-                    </legend>
                     <div class="flex items-end gap-3 justify-between">
                       <Field name="file" type='File'>
                         {(field, props) =>(
@@ -40,6 +37,7 @@ export default component$(() => {
                             label='Imagen'
                             value={field.value}
                             error={field.error}
+                            required
                           />
                         )}
                       </Field>
@@ -118,7 +116,7 @@ export default component$(() => {
                   </Field>
                 </label>
               </div>
-              <div class="flex px-4 py-3 justify-end">
+              <div class="flex px-4 py-3">
                 <button
                   class="btn btn-primary flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 text-[#121217] text-sm font-bold leading-normal tracking-[0.015em]"
                 >

@@ -14,12 +14,12 @@ export default component$(() => {
                 </div>
                 <div class="navbar-center hidden lg:flex gap-4">
                     <a href="/" class="btn btn-ghost text-sm font-medium">Inicio</a>
-                    <a class="btn btn-ghost text-sm font-medium">Buscar</a>
+                    <a href="/mascotas/buscar" class="btn btn-ghost text-sm font-medium">Buscar</a>
                     <a class="btn btn-ghost text-sm font-medium">Tips</a>
                     <a class="btn btn-ghost text-sm font-medium">Contactos</a>
                 </div>
                 <div class="navbar-end gap-4">
-                    <a href="/mascota">
+                    <a href="/mascotas/subir">
                       <button class="btn btn-success rounded-full h-10 px-4 min-w-[84px] text-sm font-bold">
                       Post a Pet
                       </button>

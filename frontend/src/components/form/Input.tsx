@@ -1,5 +1,6 @@
 import { type QRL } from '@builder.io/qwik';
 import { component$ } from '@builder.io/qwik';
+import clsx from 'clsx';
 type InputProps = {
   name: string;
   type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date' | 'time' | 'datetime-local' | 'number' | 'search' | 'color' | 'checkbox' | 'radio' | 'file' | 'select';
@@ -22,12 +23,17 @@ export const Input = component$(
       <div>
         {label && (
           <label for={name}>
-            <p class="text-[#121217] text-base font-medium leading-normal pb-2">{label} {!required && <span>(Opcional)</span>}</p>
+            <p class="text-[#121217] text-base font-medium leading-normal pb-2">{label} {!required && <span class="text-gray-500">(Opcional)</span>}</p>
             <input
-            {...props}
-            id={name}
-            aria-invalid={!!error}
-            aria-errormessage={`${name}-error`}
+              {...props}
+              id={name}
+              aria-invalid={!!error}
+              aria-errormessage={`${name}-error`}
+              class={clsx(
+                'block w-full text-sm text-gray-900',
+                props.class,
+                error && 'border-red-500'
+              )}
             />
             {error && <div id={`${name}-error`}>{error}</div>}
           </label>

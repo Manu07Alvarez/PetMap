@@ -1,14 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using PetMap.Models;
-namespace CSharpCornerApi.Data
+namespace PetMap.Context
 {
-    public class PetMapDbContext(DbContextOptions<PetMapDbContext> options) : DbContext(options)
+    
+    public class PetMapDbContext(DbContextOptions<PetMapDbContext> options)
+    : DbContext(options)
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql(
-            @"Host=myserver;Username=mylogin;Password=mypass;Database=mydatabase",
-            o => o.UseNetTopologySuite());
+        public DbSet<PetPost> Pets => Set<PetPost>();
+        public DbSet<Tags> Tags => Set<Tags>();
 
-        public DbSet<PetPost> Pets { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PetPost>()
+            .ToTable("Pets")
+            .HasIndex(p => p.Tags)
+            .HasMethod("gin");
+            
+            modelBuilder.Entity<Tags>().ToTable("Pet_Tags");
+        }
     }
 }

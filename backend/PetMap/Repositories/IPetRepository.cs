@@ -1,12 +1,16 @@
-using System;
-using System.Collections.Generic;
-namespace PetMap.Repositories;
-    public interface IAnimalsRepository : IDisposable
+
+using NetTopologySuite.Geometries;
+using PetMap.Models;
+namespace PetMap.Repositories
+{
+    public interface IPetRepository
     {
-        IEnumerable<Student> GetStudents();
-        Student GetStudentByID(int studentId);
-        void InsertStudent(Student student);
-        void DeleteStudent(int studentID);
-        void UpdateStudent(Student student);
+        Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(int? Cursor, bool? IsNextPage, int PageSize);
+        Task<PetPost> GetPetPostPage(int postID);
+        Task<List<PetPost>> GetNearbyPetsPage(Point location, double radiusMeters);
+        void CreatePetPost(PetPost post);
+        void DeletePetPost(int postID);
+        void UpdatePetPost(PetPost post);
         void Save();
     }
+}

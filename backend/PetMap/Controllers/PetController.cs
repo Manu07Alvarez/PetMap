@@ -28,7 +28,7 @@ namespace Petmap.Controllers
 
         private readonly PetService petService = petService;
 
-        [HttpGet("all")]
+        [HttpGet("pets")]
         public async Task<IActionResult> GetAllPets([FromQuery] GetPetPagedRequest request)
         {
             var response = await petService.GetAllPets(request);

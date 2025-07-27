@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PetMap.Context;
 using PetMap.Models;
@@ -13,6 +14,27 @@ namespace PetMap.Repositories
     public class PetRepository(PetMapDbContext context) : IPetRepository
     {
 
+        private readonly PetMapDbContext context = context;
+
+        public void Create(PetPost post)
+        {
+            context.Pets.Add(post);
+        }
+
+        public void Delete(PetPost post)
+        {
+            context.Pets.Remove(post);
+        }
+
+        public void Update(PetPost post)
+        {
+            context.Pets.Update(post);
+        }
+
+        public async Task Save()
+        {
+            await context.SaveChangesAsync();
+        }
         public async Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(int? Cursor, bool? IsNextPage, int PageSize)
         {
             var minId = await context.Pets.MinAsync(p => p.Id);

@@ -4,3 +4,23 @@ GET {{PetMap_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{PetMap_HostAddress}}/api/pets/GetAllPets?Cursor=2&IsNextPage=true&PageSize=2
+Accept: application/json
+
+###
+
+POST {{PetMap_HostAddress}}/api/pets/AddPet
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Contact": "123456789",
+  "Description": "A friendly dog",
+  "Location": {
+    "x": 40.7128,
+    "y": -74.0060
+  },
+  "Name": "Buddy",
+  "Tags": [1, 2, 3]
+}

@@ -1,4 +1,6 @@
+using System.Text.Json.Serialization;
 using NetTopologySuite.Geometries;
+using NetTopologySuite.IO;
 
 namespace PetMap.Dtos
 {
@@ -27,10 +29,17 @@ namespace PetMap.Dtos
     public record PetRequest(
         string Contact,
         string Description,
-        Point Location,
+        CoordinateDto? Location,
         string Name,
         int[]? Tags
     );
+
+    public record class CoordinateDto (double X, double Y)
+    {
+        [JsonIgnore]
+        public Coordinate ToCoordinate => new(X, Y);
+    }
+    
 
     public record GetPetPagedRequest(
         int? Cursor,

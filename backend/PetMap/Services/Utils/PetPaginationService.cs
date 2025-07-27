@@ -1,19 +1,17 @@
-using Microsoft.EntityFrameworkCore;
-using PetMap.Context;
-using System.Linq;
+
 using PetMap.Models;
 using PetMap.Dtos;
-using AutoMapper;
+using Mapster;
 
 namespace PetMap.Services.Utils
 {
     public static class PetPaginationService
     {
 
-        public static PetPagedResponse GetPagedData(IMapper mapper,List<PetPost> pets, int? Cursor, bool? IsNextPage, int PageSize, int minId)
+        public static PetPagedResponse GetPagedData(List<PetPost> pets, int? Cursor, bool? IsNextPage, int PageSize, int minId)
         {
 
-            var petsOnPage = pets.Select(p => mapper.Map<PetResponse>(pets)).ToList();
+            var petsOnPage = pets.AsQueryable().ProjectToType<PetResponse>().ToList();
 
             
             // Reverse the list if it's a previous page             

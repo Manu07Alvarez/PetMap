@@ -1,14 +1,9 @@
-using AutoMapper;
+using MapsterMapper;
 using PetMap.Models;
 using PetMap.Dtos;
 
 namespace PetMap.Mappings;
-public class PetProfile : Profile
+public class PetMapper
 {
-    public PetProfile()
-    {
-        CreateMap<PetPost, PetResponse>();
-        CreateMap<PetRequest, PetPost>();
-        // y otros mappings que necesites
-    }
+    
 }

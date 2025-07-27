@@ -11,7 +11,7 @@ namespace PetMap.Repositories.Utils
 
 
             int takeAmount = PageSize + 1;
-
+            
             if (Cursor is not null)
             {
                 if (IsNextPage == true)
@@ -33,7 +33,6 @@ namespace PetMap.Repositories.Utils
 
 
             var result =  await pets.Take(takeAmount).ToListAsync();
-
             // Reverse the list if it's a previous page             
             if (IsNextPage == false && Cursor is not null)
             {

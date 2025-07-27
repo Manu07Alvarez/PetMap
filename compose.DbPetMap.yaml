@@ -9,7 +9,7 @@ services:
     networks:
       - petmap
     ports:
-      - 5430:5432
+      - 0.0.0.0:5430:5432
     volumes:
       - petmap-db_pstgre_age:/var/lib/postgresql/data
   db-visor:

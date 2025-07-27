@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using PetMap.Models;
+using Bogus;
 namespace PetMap.Context
 {
-    
+
     public class PetMapDbContext(DbContextOptions<PetMapDbContext> options)
     : DbContext(options)
     {
@@ -15,8 +16,10 @@ namespace PetMap.Context
             .ToTable("Pets")
             .HasIndex(p => p.Tags)
             .HasMethod("gin");
-            
+
             modelBuilder.Entity<Tags>().ToTable("Pet_Tags");
         }
+
+
     }
 }

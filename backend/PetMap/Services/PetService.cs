@@ -1,4 +1,5 @@
 
+using System.Threading.Tasks;
 using Mapster;
 using MapsterMapper;
 using PetMap.Dtos;
@@ -26,25 +27,25 @@ namespace PetMap.Services
             return pagedResponse;
         }
 
-        public void AddPet(PetRequest petRequest)
+        public async Task AddPet(PetRequest petRequest)
         {
-            var petPost = petRequest.Adapt<PetPost>();
+            PetPost petPost = petRequest.Adapt<PetPost>();
             petRepository.Create(petPost);
-            petRepository.Save();
+            await petRepository.Save();
         }
 
-        public void UpdatePet(PetRequest petRequest)
+        public async Task UpdatePet(PetRequest petRequest)
         {
             PetPost petPost = petRequest.Adapt<PetPost>();
             petRepository.Update(petPost);
-            petRepository.Save();
+            await petRepository.Save();
         }
 
-        public void DeletePet(PetRequest petRequest)
+        public async Task DeletePet(PetRequest petRequest)
         {
             PetPost petPost = petRequest.Adapt<PetPost>();
             petRepository.Delete(petPost);
-            petRepository.Save();
+            await petRepository.Save();
         }
     }
 }

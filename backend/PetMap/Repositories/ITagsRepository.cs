@@ -2,7 +2,7 @@
 using PetMap.Models;
 namespace PetMap.Repositories
 {
-    public interface ITagsRepository : IDisposable
+    public interface ITagsRepository
     {
         IEnumerable<Tags> GetAllTags();
         Task<Tags> GetTagsByID(int tagID);

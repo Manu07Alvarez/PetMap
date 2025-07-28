@@ -6,6 +6,7 @@ using PetMap.Seeders;
 using PetMap.Services;
 using Mapster;
 using PetMap.Mappings;
+using System.Runtime.InteropServices;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,8 +37,16 @@ using (var scope = app.Services.CreateScope())
     
     if (app.Environment.IsDevelopment())
     {
-        if (db.Database.EnsureCreatedAsync().GetAwaiter().GetResult())
+        Console.WriteLine("Development environment detected. Ensuring database is created...");
+        try 
         {
+            await db.Pets.AnyAsync();
+            Console.WriteLine("Database already contains data, skipping creation.");
+        } catch 
+        {
+            await db.Database.EnsureDeletedAsync();
+            await db.Database.EnsureCreatedAsync();
+            Console.WriteLine("Database created successfully.");
             PetSeeder.SeedData(db); // solo si está vacía
         }
     }

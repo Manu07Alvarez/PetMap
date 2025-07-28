@@ -1,6 +1,6 @@
 namespace Petmap.Controllers
 {
-
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using PetMap.Dtos;
     using PetMap.Services;
@@ -37,11 +37,11 @@ namespace Petmap.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("AddPet")]
         [Consumes("application/json")]
-        public IActionResult AddPet([FromBody] PetRequest petRequest)
+        public async Task<IActionResult> AddPet([FromBody] PetRequest petRequest)
         {
             try
             {
-                petService.AddPet(petRequest);
+                await petService.AddPet(petRequest);
                 return Created("AddPet", petRequest);
             }
             catch (Exception ex)

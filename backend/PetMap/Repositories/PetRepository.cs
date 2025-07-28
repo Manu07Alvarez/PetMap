@@ -18,6 +18,7 @@ namespace PetMap.Repositories
 
         public void Create(PetPost post)
         {
+            Console.WriteLine(post.Id);
             context.Pets.Add(post);
         }
 

@@ -15,12 +15,15 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "Contact": "123456789",
+  "Contact": "123456",
   "Description": "A friendly dog",
   "Location": {
     "x": 40.7128,
     "y": -74.0060
   },
   "Name": "Buddy",
-  "Tags": [1, 2, 3]
+  "Tags": [
+    1,
+    2
+  ]
 }

@@ -1,26 +1,26 @@
 services:
-  db-postgre:
-    image: apache/age
-    container_name: postgres_age_db_petmap
+  db-petmap:
+    image: postgis/postgis:16-master
+    container_name: petmap_db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
       POSTGRES_DB: petmap
     networks:
       - petmap
     ports:
       - 0.0.0.0:5430:5432
     volumes:
-      - petmap-db_pstgre_age:/var/lib/postgresql/data
-  db-visor:
+      - petmap-db_pstgre_gis:/var/lib/postgresql/data
+  db-visor-petmap:
     image: adminer
-    container_name: adminer_express
+    container_name: adminer_petmap
     ports:
       - "8014:8080"
     networks:
       - petmap
     depends_on:
-      db-postgre:
+      db-petmap:
         condition: service_started
         restart: true
     environment:
@@ -32,7 +32,7 @@ services:
       ADMINER_DEFAULT_SERVER: db-postgre
       ADMINER_DEFAULT_DB_NAME: petmap
 volumes:
-  petmap-db_pstgre_age:
+  petmap-db_pstgre_gis:
 
 networks:
   petmap:

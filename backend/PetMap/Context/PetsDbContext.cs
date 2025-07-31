@@ -16,6 +16,7 @@ namespace PetMap.Context
             .ToTable("Pets")
             .Property(p => p.Id)
             .UseIdentityAlwaysColumn();
+    
             modelBuilder.Entity<PetPost>()
             .HasIndex(p => p.Tags)
             .HasMethod("gin");

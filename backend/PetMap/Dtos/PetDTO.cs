@@ -11,7 +11,7 @@ namespace PetMap.Dtos
         public required string Contact { get; set; }
 
         public required string Description { get; set; }
-        public Point? Location { get; set; }
+        public CoordinateDto? Location { get; set; }
 
         public string? Name { get; set; }
 
@@ -23,7 +23,7 @@ namespace PetMap.Dtos
         IEnumerable<PetResponse> Pets,
         int? NextId,
         int? PreviousId,
-        bool IsFirstPage
+        int? Pages
     );
 
     public record PetRequest(
@@ -43,7 +43,7 @@ namespace PetMap.Dtos
 
     public record GetPetPagedRequest(
         int? Cursor,
-        bool? IsNextPage,
-        int PageSize
+        int PageSize,
+        Dictionary<string, string> Options
     );
 }

@@ -22,7 +22,11 @@ builder.Services.AddMapster();
 MapsterConfig.RegisterMapsterConfiguration(builder.Services);
 builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddScoped<IPetService, PetService>();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.NumberHandling =
+        System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals;
+});
 builder.Services.AddSwaggerGen(c =>
 {
      c.SwaggerDoc("v1", new OpenApiInfo { Title = "PetMap API", Description = "Busca a tu mascota", Version = "v1" });

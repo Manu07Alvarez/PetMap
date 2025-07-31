@@ -27,3 +27,7 @@ Accept: application/json
     2
   ]
 }
+
+###
+GET {{PetMap_HostAddress}}/api/pets/GetAllPets?Cursor=10&PageSize=2
+Accept: application/json

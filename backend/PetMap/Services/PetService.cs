@@ -16,13 +16,12 @@ namespace PetMap.Services
 
         public async Task<PetPagedResponse> GetAllPets(GetPetPagedRequest data)
         {
-            var pagedPets = await petRepository.GetAllPetsPage(data.Cursor, data.IsNextPage, data.PageSize);
+            var pagedPets = await petRepository.GetAllPetsPage(data.Cursor, data.PageSize, data.Options);
             var pagedResponse = PetPaginationService.GetPagedData(
                 pagedPets.Items,
-                data.Cursor,
-                data.IsNextPage,
+                pagedPets.Pages,
                 data.PageSize,
-                pagedPets.MinId
+                pagedPets.MaxId
             );
             return pagedResponse;
         }

@@ -5,7 +5,11 @@ namespace PetMap.Repositories
 {
     public interface IPetRepository
     {
-        Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(int? Cursor, bool? IsNextPage, int PageSize);
+        Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(
+            int? Cursor,
+            int PageSize,
+            Dictionary<string, string> Options
+        );
        // Task<List<PetPost>> GetNearbyPetsPage(Point location, double radiusMeters);
         void Create(PetPost post);
         void Delete(PetPost post);

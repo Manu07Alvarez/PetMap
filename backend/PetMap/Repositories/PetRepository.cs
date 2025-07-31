@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PetMap.Context;
 using PetMap.Models;
+using Z.EntityFramework.Plus;
 using PetMap.Repositories.Utils;
 
 namespace PetMap.Repositories
@@ -9,7 +10,10 @@ namespace PetMap.Repositories
     public class PagedEntitiesResult<T>
     {
         public List<T> Items { get; set; } = [];
-        public int MinId { get; set; }
+        public int MaxId { get; set; }
+
+        public int Pages { get; set; }
+        
     }
     public class PetRepository(PetMapDbContext context) : IPetRepository
     {
@@ -36,19 +40,22 @@ namespace PetMap.Repositories
         {
             await context.SaveChangesAsync();
         }
-        public async Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(int? Cursor, bool? IsNextPage, int PageSize)
+        public async Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(int? Cursor, int PageSize, Dictionary<string, string> Options)
         {
-            var minId = await context.Pets.MinAsync(p => p.Id);
-
+            var maxId = context.Pets.DeferredMax(p => p.Id).FutureValue<int>();
+            var pages = context.Pets.DeferredCount().FutureValue<int>();
             var pets = context.Pets
                 .AsNoTracking()
-                .OrderByDescending(p => p.Id);
-            var pagedPets = await PaginationRepository.GetPagedData(pets, Cursor, IsNextPage, PageSize);
+                .AsQueryable();
+            pets = FiltersRepository.ApplyFilters(pets, Options);
+            
+            var pagedPets = await PaginationRepository.GetPagedData(pets, Cursor, PageSize, Options);
 
             return new PagedEntitiesResult<PetPost>
             {
                 Items = pagedPets,
-                MinId = minId
+                MaxId = maxId,
+                Pages = pages
             };
         }
 

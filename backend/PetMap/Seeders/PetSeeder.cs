@@ -1,6 +1,7 @@
 using PetMap.Context;
 using Bogus;
 using PetMap.Models;
+using NetTopologySuite.Geometries;
 namespace PetMap.Seeders;
 
 public static class PetSeeder
@@ -12,7 +13,8 @@ public static class PetSeeder
             .RuleFor(p => p.Name, f => f.Person.FirstName)
             .RuleFor(p => p.Description, f => f.Lorem.Sentence())
             .RuleFor(p => p.Contact, f => f.Internet.Email())
-            .Generate(10);
+            .RuleFor(p => p.Location, f => new Point(f.Random.Double(-180, 180), f.Random.Double(-90, 90)) { SRID = 4326 })
+            .Generate(10000);
 
         context.Pets.AddRange(pets);
         context.SaveChanges();

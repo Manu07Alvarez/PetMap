@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
+using NpgsqlTypes;
 
 namespace PetMap.Models
 {
@@ -20,10 +21,12 @@ namespace PetMap.Models
 
         [Column(TypeName = "geometry (point)")]
         public Point? Location { get; set; }
-
+        
         public string? Name { get; set; }
 
         public int[]? Tags { get; set; } = [];
+
+       // public NpgsqlTsVector? SearchVector { get; set; }
 
     }
     

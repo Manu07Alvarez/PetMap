@@ -22,6 +22,7 @@ namespace PetMap.Models
         [Column(TypeName = "geometry (point)")]
         public Point? Location { get; set; }
         
+        public required string FileKey { get; set; }
         public string? Name { get; set; }
 
         public int[]? Tags { get; set; } = [];

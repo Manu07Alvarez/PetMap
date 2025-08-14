@@ -1,38 +1,38 @@
 
 using PetMap.Models;
 using PetMap.Dtos;
+using PetMap.Repositories;
 using Mapster;
+using MapsterMapper;
 
 namespace PetMap.Services.Utils
 {
-    public static class PetPaginationService
+    public class PetPaginationService()
     {
 
-        public static PetPagedResponse GetPagedData(List<PetPost> pets, int pages, int PageSize, int maxId)
-        {
-
-            var petsOnPage = pets.AsQueryable().ProjectToType<PetResponse>().ToList();
-
+        public static (List<PetPost>, int?, int?, int)  GetPagedData(List<PetPost> pets, int pages, int PageSize)
+        { 
             // There's a next page if:
             // 1. We got an extra record
             // 2. We're navigating to the previous page
-            bool hasNextPage = petsOnPage.Count > PageSize;
+            bool hasNextPage = pets.Count > PageSize;
             // Remove the extra record used for next page detection
-            if (petsOnPage.Count > PageSize)
+            if (pets.Count > PageSize)
             {
-                petsOnPage.RemoveAt(petsOnPage.Count - 1);
+                pets.RemoveAt(pets.Count - 1);
             }
     
             int? nextId = hasNextPage
-                ? petsOnPage[^1].Id
+                ? pets[^1].Id
                 : null;
 
-            int? previousId = petsOnPage.Count > 0
-                ? petsOnPage[0].Id
+            int? previousId = pets.Count > 0
+                ? pets[0].Id
                 : null;
 
 
-            return new PetPagedResponse(petsOnPage, nextId, previousId, pages);
+
+            return (pets, nextId, previousId, pages);
 
 
         }

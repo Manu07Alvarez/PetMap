@@ -4,8 +4,8 @@ using PetMap.Context;
 using PetMap.Repositories;
 using PetMap.Seeders;
 using PetMap.Services;
-using Mapster;
-using PetMap.Mappings;
+using Amazon.S3;
+using PetMap.Config;
 using System.Runtime.InteropServices;
 
 
@@ -18,8 +18,8 @@ builder.Services.AddDbContext<PetMapDbContext>(options =>
     options.UseNpgsql(
         connectionString,
         o => o.UseNetTopologySuite()));
-builder.Services.AddMapster();
-MapsterConfig.RegisterMapsterConfiguration(builder.Services);
+builder.Services.AddSingleton<IAmazonS3>(S3Config.CreateS3Client());
+builder.Services.AddScoped<IFilesRepository, FilesRepository>();
 builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddScoped<IPetService, PetService>();
 builder.Services.AddControllers().AddJsonOptions(options =>

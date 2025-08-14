@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 using NetTopologySuite.Geometries;
-using NetTopologySuite.IO;
+using PetMap.Models;
 
 namespace PetMap.Dtos
 {
@@ -11,7 +11,10 @@ namespace PetMap.Dtos
         public required string Contact { get; set; }
 
         public required string Description { get; set; }
+
         public CoordinateDto? Location { get; set; }
+  
+        public required Stream File { get; set; }
 
         public string? Name { get; set; }
 
@@ -24,13 +27,21 @@ namespace PetMap.Dtos
         int? NextId,
         int? PreviousId,
         int? Pages
-    );
+    )
+    {
+        public static implicit operator PetPagedResponse((List<PetPost>, int?, int?, int) v)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 
     public record PetRequest(
         string Contact,
         string Description,
         CoordinateDto? Location,
-        string Name,
+        IFormFile? File,
+        string? Name,
         int[]? Tags
     );
 

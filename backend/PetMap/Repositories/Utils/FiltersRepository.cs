@@ -11,7 +11,7 @@ public static class FiltersRepository
     {       
         public Dictionary<string, Func<IQueryable<T>, IQueryable<T>>> Filters { get; set; } = new() {
             ["Direction"] = (query) => Options["Direction"] == "desc" ? 
-            query.OrderByDescending(p => p.Id) : query.OrderBy(p => p.Id),
+                query.OrderByDescending(p => p.Id) : query.OrderBy(p => p.Id),
             ["Contact"] = (query) => query.Where(p => p.Contact.Contains(Options["Contact"])),
             ["Location"] = (query) => query.Where(p => p.Location != null),
             ["Name"] = (query) => query.Where(p => !string.IsNullOrEmpty(Options["Name"]) && p.Name!.Contains(Options["Name"])),

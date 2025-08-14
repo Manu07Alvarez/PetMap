@@ -61,6 +61,7 @@ namespace Petmap.Controllers
             try
             {
                 var response = await petService.GetAllPets(request);
+                response.Pets.Select(p => Results.File(p.File));
                 return Ok(response);
             }
             catch (Exception ex)

@@ -1,9 +1,7 @@
 using Mapster;
 using PetMap.Dtos;
-using NetTopologySuite.Geometries;
-using Microsoft.EntityFrameworkCore;
-using NetTopologySuite;
 using PetMap.Models;
+using PetMap.Repositories;
 using System.Reflection;
 namespace PetMap.Mappings
 {
@@ -15,7 +13,7 @@ namespace PetMap.Mappings
             TypeAdapterConfig<PetRequest, PetPost>
                 .NewConfig()
                 .Map(dest => dest.Location, src => src.Location);
-                
+
             TypeAdapterConfig.GlobalSettings.Default.MapToConstructor(true);
             TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
         }

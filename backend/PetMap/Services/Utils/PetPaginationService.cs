@@ -2,15 +2,14 @@
 using PetMap.Models;
 using PetMap.Dtos;
 using PetMap.Repositories;
-using Mapster;
-using MapsterMapper;
+using PetMap.Mappings;
 
 namespace PetMap.Services.Utils
 {
     public class PetPaginationService()
     {
 
-        public static (List<PetPost>, int?, int?, int)  GetPagedData(List<PetPost> pets, int pages, int PageSize)
+        public static PetPagedResponse GetPagedData(List<PetPost> pets, int pages, int PageSize)
         { 
             // There's a next page if:
             // 1. We got an extra record
@@ -31,8 +30,9 @@ namespace PetMap.Services.Utils
                 : null;
 
 
+            List<PetResponse> petResponse = pets.Select(p => p.MapToPetResponse()).ToList();
 
-            return (pets, nextId, previousId, pages);
+            return new PetPagedResponse(petResponse, nextId, previousId, pages);
 
 
         }

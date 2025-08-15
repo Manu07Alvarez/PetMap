@@ -14,7 +14,7 @@ namespace PetMap.Dtos
 
         public CoordinateDto? Location { get; set; }
   
-        public required Stream File { get; set; }
+        public required string FileKey { get; set; }
 
         public string? Name { get; set; }
 

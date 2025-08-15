@@ -21,7 +21,7 @@ namespace PetMap.Mappings
             };
         }
         
-        public static PetResponse MapToPetResponse(this PetPost source, Stream file)
+        public static PetResponse MapToPetResponse(this PetPost source)
         {
             return new PetResponse
             {
@@ -31,7 +31,7 @@ namespace PetMap.Mappings
                 Contact = source.Contact,
                 Location = new CoordinateDto(source.Location!.Coordinate.X, source.Location.Coordinate.Y),
                 Tags = source.Tags,
-                File = file
+                FileKey = source.FileKey
             };
         }
     }

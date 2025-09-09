@@ -10,13 +10,17 @@ namespace PetMap.Context
         public DbSet<PetPost> Pets => Set<PetPost>();
         public DbSet<Tags> Tags => Set<Tags>();
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PetPost>()
             .ToTable("Pets")
             .Property(p => p.Id)
             .UseIdentityAlwaysColumn();
-    
+
             modelBuilder.Entity<PetPost>()
             .HasIndex(p => p.Tags)
             .HasMethod("gin");

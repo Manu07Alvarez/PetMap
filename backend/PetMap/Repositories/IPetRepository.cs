@@ -1,14 +1,15 @@
 
 using NetTopologySuite.Geometries;
+using PetMap.Dtos;
 using PetMap.Models;
 namespace PetMap.Repositories
 {
     public interface IPetRepository
     {
         Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(
-            int? Cursor,
+            DateTime? Cursor,
             int PageSize,
-            Dictionary<string, string> Options
+            GetFilters? Options
         );
        // Task<List<PetPost>> GetNearbyPetsPage(Point location, double radiusMeters);
         void Create(PetPost post);

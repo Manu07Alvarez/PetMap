@@ -5,12 +5,12 @@ using PetMap.Models;
 using Z.EntityFramework.Plus;
 using PetMap.Repositories.Utils;
 using Amazon.S3;
+using PetMap.Dtos;
 namespace PetMap.Repositories
 {
     public class PagedEntitiesResult<T>
     {
         public List<T> Items { get; set; } = [];
-        public int MaxId { get; set; }
 
         public int Pages { get; set; }
         
@@ -40,21 +40,18 @@ namespace PetMap.Repositories
         {
             await context.SaveChangesAsync();
         }
-        public async Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(int? Cursor, int PageSize, Dictionary<string, string> Options)
+        public async Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(DateTime? Cursor, int PageSize, GetFilters? Options)
         {
-            var maxId = context.Pets.DeferredMax(p => p.Id).FutureValue<int>();
             var pages = context.Pets.DeferredCount().FutureValue<int>();
             var pets = context.Pets
                 .AsNoTracking()
                 .AsQueryable();
-            pets = FiltersRepository.ApplyFilters(pets, Options);
 
-            var pagedPets = await PaginationRepository.GetPagedData(pets, Cursor, PageSize, Options);
+            var pagedPets = await PetPaginationRepository.GetPagedData(pets, Cursor, PageSize, Options);
 
             return new PagedEntitiesResult<PetPost>
             {
                 Items = pagedPets,
-                MaxId = maxId,
                 Pages = pages
             };
         }

@@ -14,7 +14,8 @@ public static class PetSeeder
             .RuleFor(p => p.Description, f => f.Lorem.Sentence())
             .RuleFor(p => p.Contact, f => f.Internet.Email())
             .RuleFor(p => p.Location, f => new Point(f.Random.Double(-180, 180), f.Random.Double(-90, 90)) { SRID = 4326 })
-            .Generate(10000);
+            .RuleFor(p => p.FileKey, f => f.Random.String2(8))
+            .Generate(1000);
 
         context.Pets.AddRange(pets);
         context.SaveChanges();

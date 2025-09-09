@@ -15,9 +15,12 @@ var connectionString =
         ?? throw new InvalidOperationException("Connection string"
         + "'DefaultConnection' not found.");
 builder.Services.AddDbContext<PetMapDbContext>(options =>
-    options.UseNpgsql(
+    options
+    .UseNpgsql(
         connectionString,
         o => o.UseNetTopologySuite()));
+
+
 builder.Services.AddSingleton<IAmazonS3>(S3Config.CreateS3Client());
 builder.Services.AddScoped<IFilesRepository, FilesRepository>();
 builder.Services.AddScoped<IPetRepository, PetRepository>();

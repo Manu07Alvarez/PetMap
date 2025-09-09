@@ -51,10 +51,10 @@ namespace PetMap.Dtos
         public Coordinate ToCoordinate => new(X, Y);
     }
     
-
+    
     public record GetPetPagedRequest(
-        int? Cursor,
+        DateTime? Cursor,
         int PageSize,
-        Dictionary<string, string> Options
+        GetFilters? Options
     );
 }

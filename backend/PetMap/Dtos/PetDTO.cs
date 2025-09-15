@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore.Query;
 using NetTopologySuite.Geometries;
 using PetMap.Models;
 
@@ -48,13 +49,14 @@ namespace PetMap.Dtos
     public record class CoordinateDto (double X, double Y)
     {
         [JsonIgnore]
-        public Coordinate ToCoordinate => new(X, Y);
+        internal Coordinate ToCoordinate => new(X, Y);
     }
     
     
     public record GetPetPagedRequest(
         DateTime? Cursor,
+        long? RowNumber,
         int PageSize,
-        GetFilters? Options
+        FilterRequest? Options
     );
 }

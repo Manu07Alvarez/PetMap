@@ -40,14 +40,12 @@ namespace PetMap.Repositories
         {
             await context.SaveChangesAsync();
         }
-        public async Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(DateTime? Cursor, int PageSize, GetFilters? Options)
+        public async Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(DateTime? Cursor, long? RowNumber,  int PageSize, FilterRequest? Options)
         {
             var pages = context.Pets.DeferredCount().FutureValue<int>();
-            var pets = context.Pets
-                .AsNoTracking()
-                .AsQueryable();
+            var pets = context.Pets;
 
-            var pagedPets = await PetPaginationRepository.GetPagedData(pets, Cursor, PageSize, Options);
+            var pagedPets = await PetPaginationRepository.GetPagedData(pets, Cursor, RowNumber, PageSize, Options);
 
             return new PagedEntitiesResult<PetPost>
             {

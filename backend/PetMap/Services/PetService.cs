@@ -7,7 +7,7 @@ using PetMap.Services.Utils;
 
 namespace PetMap.Services
 {
-    public class PetService(IPetRepository petRepository, IFilesRepository filesRepository) : IPetService
+    public class PetService(IPetRepository petRepository) : IPetService
     {
         private readonly IPetRepository petRepository = petRepository;
         public async Task<PetPagedResponse> GetAllPets(GetPetPagedRequest data)
@@ -15,6 +15,7 @@ namespace PetMap.Services
             
             PagedEntitiesResult<PetPost> pagedPets = await petRepository.GetAllPetsPage(
                 data.Cursor,
+                data.RowNumber,
                 data.PageSize,
                 data.Options
             );

@@ -1,6 +1,7 @@
 
 namespace PetMap.Repositories.Utils;
 using PetMap.Models;
+using LinqToDB;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Linq.Dynamic.Core;
@@ -9,26 +10,53 @@ using PetMap.Dtos;
 
 public static class FiltersRepository
 {
-    public static IQueryable<PetPost> ApplyFilters(IQueryable<PetPost> query, GetFilters options)
+    public static IQueryable<FilterResponse> ApplyFilters(IQueryable<PetPost> query, FilterRequest options)
     {
+        var sQuery  = query.Select(p => new
+        {
+            Post = p,
+            Score = 0.0
+        });
 
         if (!string.IsNullOrEmpty(options.Contact))
         {
-            query = query.Where(p => p.Contact.Contains(options.Contact));
+            sQuery = sQuery
+            .Where(p => EF.Functions.TrigramsStrictWordSimilarity(p.Post.Contact, options.Contact) > 0)
+            .Select(
+                p => new
+                {
+                    p.Post,
+                    Score =  p.Score + EF.Functions.TrigramsStrictWordSimilarity(p.Post.Contact, options.Contact)
+                }
+            ) ;
         }
 
         if (!string.IsNullOrEmpty(options.Name))
         {
-            query = query.Where(p => p.Name != null && p.Name.Contains(options.Name));
+
+            sQuery = sQuery
+            .Where(p => !string.IsNullOrEmpty(p.Post.Name) && EF.Functions.TrigramsStrictWordSimilarity(p.Post.Name, options.Name) > 0)
+            .Select(
+                p => new
+                {
+                    p.Post,
+                    Score = p.Score + EF.Functions.TrigramsStrictWordSimilarity(p.Post.Name!, options.Name)
+                }
+            ) ;
         }
 
-        if (options.Location != null) // puedes agregar un flag en tu DTO
-        {
-            query = query.Where(p => p.Location != null);
-        }
+        var rnQuery =
+            from p in sQuery
+            select new FilterResponse( 
+                p.Post,
+                Sql.Ext.RowNumber()
+                    .Over()
+                    .OrderByDesc(p.Score)
+                    .ToValue()
+            );
 
-
-        return query;
+  
+        return rnQuery;
     }
 
     public static IQueryable<PetPost> Ordering(

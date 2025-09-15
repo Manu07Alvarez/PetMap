@@ -1,3 +1,6 @@
+using System;
+using LinqToDB;
+using LinqToDB.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PetMap.Context;
 using PetMap.Dtos;
@@ -8,22 +11,38 @@ namespace PetMap.Repositories.Utils
 {
     public static class PetPaginationRepository
     {
-        public async static Task<List<PetPost>> GetPagedData(IQueryable<PetPost> pets, DateTime? Cursor, int PageSize, GetFilters? Options)
+        public async static Task<List<PetPost>> GetPagedData(
+            IQueryable<PetPost> pets,
+            DateTime? Cursor,
+            long? RowNumber,
+            int PageSize,
+            FilterRequest? Options
+        )
         {
 
-            //BUG: when IsNextPage is True and Cursor is higher than the last record it returns the same page.
             int takeAmount = PageSize + 1;
             if (Options != null)
             {
-                pets = FiltersRepository.ApplyFilters(pets, Options);
+                var rnPets = FiltersRepository.ApplyFilters(pets, Options);
+                pets = rnPets.Where(p => p.Rows > RowNumber).Select(p => p.Posts);
             }
             else
             {
                 pets = pets
-                .Where(p => p.UpdatedAt < Cursor);
-                    
+                .Where(p => p.UpdatedAt < Cursor!.Value.ToUniversalTime());
+
             }
-            return await pets.Take(takeAmount).ToListAsync();
+            try
+            {
+                return await pets.Take(takeAmount).ToLinqToDB().ToListAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
+                
         }
     }
 }

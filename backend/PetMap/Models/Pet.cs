@@ -13,11 +13,11 @@ namespace PetMap.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public required DateTime CreateAt { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreateAt { get; set; }
 
-        [Required][DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public required DateTime UpdatedAt { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime UpdatedAt { get; set; }
 
         [Required]
         public required string Contact { get; set; }

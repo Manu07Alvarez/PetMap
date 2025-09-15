@@ -7,6 +7,7 @@ using PetMap.Services;
 using Amazon.S3;
 using PetMap.Config;
 using System.Runtime.InteropServices;
+using LinqToDB.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,7 @@ builder.Services.AddSwaggerGen(c =>
      c.SwaggerDoc("v1", new OpenApiInfo { Title = "PetMap API", Description = "Busca a tu mascota", Version = "v1" });
 });
 builder.Services.AddEndpointsApiExplorer();
+LinqToDBForEFTools.Initialize();
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 var app = builder.Build();

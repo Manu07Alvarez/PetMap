@@ -22,6 +22,17 @@ namespace PetMap.Context
             .UseIdentityAlwaysColumn();
 
             modelBuilder.Entity<PetPost>()
+            .ToTable("Pets")
+            .Property(p => p.UpdatedAt)
+            .HasDefaultValueSql("now()");
+
+            modelBuilder.Entity<PetPost>()
+            .ToTable("Pets")
+            .Property(p => p.CreateAt)
+            .HasDefaultValueSql("now()");
+
+
+            modelBuilder.Entity<PetPost>()
             .HasIndex(p => p.Tags)
             .HasMethod("gin");
 

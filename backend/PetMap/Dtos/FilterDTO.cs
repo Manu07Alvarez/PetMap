@@ -1,6 +1,8 @@
+using PetMap.Models;
+
 namespace PetMap.Dtos;
 
-    public record class GetFilters(
+    public record class FilterRequest(
         string? Name,
         int[]? Tags,
         string? Contact,
@@ -12,4 +14,9 @@ namespace PetMap.Dtos;
         bool? Date,
         bool? Location,
         bool? Contact
+    );
+
+    public record class FilterResponse(
+        PetPost Posts,
+        long Rows
     );

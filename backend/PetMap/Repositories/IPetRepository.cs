@@ -8,8 +8,9 @@ namespace PetMap.Repositories
     {
         Task<PagedEntitiesResult<PetPost>> GetAllPetsPage(
             DateTime? Cursor,
+            long? RowNumber,
             int PageSize,
-            GetFilters? Options
+            FilterRequest? Options
         );
        // Task<List<PetPost>> GetNearbyPetsPage(Point location, double radiusMeters);
         void Create(PetPost post);

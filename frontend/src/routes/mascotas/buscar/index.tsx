@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import AnimalsCards from "~/components/search/animals.cards";
 
 export default component$(() => {
     return (
@@ -10,22 +11,11 @@ export default component$(() => {
 
             <div class="gap-1 px-6 flex flex-1 justify-center py-5">
                 <div class="layout-content-container flex flex-col max-w-[920px] flex-1">
-                <div class="flex flex-wrap justify-between gap-3 p-4">
-                    <p class="text-[#121217] tracking-light text-[32px] font-bold leading-tight min-w-72">Search for Lost Pets</p>
-                </div>
-                <h2 class="text-[#121217] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Search Results</h2>
-                <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-                    <div class="flex flex-col gap-3 pb-3">
-                    <div
-                        class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-xl"
-                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuArx7RUwXyeEASJGdZCmqKyitRFvrlexDJPdLqKaHlnhiahStbSXiwzLXwmeczZHyeh45oEfFq3Eb_8iqUMyIzps1SHmSRTO9RLZL9qysDyHbATQtO-ZSbN3rieMRlr6_AeUe_u1HHuIVUd3m1lvDBggRjGTFnO8bWt5mcrg_xNFTCBafkHtEy_dQmp7_larY9hq8s9woFIRgycXKHqtqwgIKd5PsxMojDi8yUvfczBRCPn6npgJM8qcmMdRw990GITfwysxaJ6Qw");'
-                    ></div>
-                    <div>
-                        <p class="text-[#121217] text-base font-medium leading-normal">Buddy</p>
-                        <p class="text-[#676a83] text-sm font-normal leading-normal">Golden Retriever, Male, Lost near Central Park on 08/15/2023</p>
+                    <div class="flex flex-wrap justify-between gap-3 p-4">
+                        <p class="text-[#121217] tracking-light text-[32px] font-bold leading-tight min-w-72">Search for Lost Pets</p>
                     </div>
-                    </div>
-                </div>
+                    <h2 class="text-[#121217] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Search Results</h2>
+                    <AnimalsCards></AnimalsCards>
                 </div>
                 <div class="layout-content-container flex flex-col w-[360px]">
                 <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">

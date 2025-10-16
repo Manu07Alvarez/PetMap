@@ -4,7 +4,7 @@ using Amazon.S3.Model;
 using PetMap.Config;
 public class FilesRepository(IAmazonS3 _s3Client): IFilesRepository
 {
-    public async Task  FileInsert(string bucket, string key, Stream stream)
+    public async Task FileInsert(string bucket, string key, Stream stream)
     {
         await _s3Client.PutObjectAsync(new PutObjectRequest
         {

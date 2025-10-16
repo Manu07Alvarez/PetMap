@@ -22,7 +22,7 @@ builder.Services.AddDbContext<PetMapDbContext>(options =>
         o => o.UseNetTopologySuite()));
 
 
-builder.Services.AddSingleton<IAmazonS3>(S3Config.CreateS3Client());
+builder.Services.AddSingleton(S3Config.CreateS3Client(builder.Configuration));
 builder.Services.AddScoped<IFilesRepository, FilesRepository>();
 builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddScoped<IPetService, PetService>();

@@ -7,10 +7,10 @@ namespace PetMap.Services
     public interface IPetService
     {
         Task<PetPagedResponse> GetAllPets(GetPetPagedRequest data);
-        Task AddPet(PetRequest petRequest);
+        Task AddPet(PostPetRequest petRequest);
         //Task<PetResponse> GetPetById(int id);
-        Task UpdatePet(PetRequest petRequest);
-        Task DeletePet(PetRequest petRequest);
+        Task UpdatePet(PostPetRequest petRequest);
+        Task DeletePet(PostPetRequest petRequest);
         //Task<List<PetResponse>> GetPetsByUserId(int userId);
     }
 }

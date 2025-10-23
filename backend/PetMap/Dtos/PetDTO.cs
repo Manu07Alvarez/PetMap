@@ -1,30 +1,22 @@
+using System.Buffers.Text;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore.Query;
 using NetTopologySuite.Geometries;
 using PetMap.Models;
 
 namespace PetMap.Dtos
 {
-    public class PetResponse
-    {
-        public int Id { get; set; }
-
-        public required string Contact { get; set; }
-
-        public required string Description { get; set; }
-
-        public CoordinateDto? Location { get; set; }
-  
-        public required string FileKey { get; set; }
-
-        public string? Name { get; set; }
-
-        public int[]? Tags { get; set; } = [];
-
-    }
+    public record class  GetPetResponse(
+            int id,
+            string contact,
+            string description,
+            string stream_file,
+            CoordinateDto? location,
+            string? name,
+            int[]? tags
+    );
 
     public record PetPagedResponse(
-        IEnumerable<PetResponse> Pets,
+        IEnumerable<GetPetResponse> Pets,
         int? NextId,
         int? PreviousId,
         int? Pages
@@ -37,7 +29,7 @@ namespace PetMap.Dtos
     }
 
 
-    public record PetRequest(
+    public record struct PostPetRequest(
         string Contact,
         string Description,
         CoordinateDto? Location,
@@ -46,12 +38,11 @@ namespace PetMap.Dtos
         int[]? Tags
     );
 
-    public record class CoordinateDto (double X, double Y)
+    public record class CoordinateDto(double X, double Y)
     {
         [JsonIgnore]
         internal Coordinate ToCoordinate => new(X, Y);
     }
-    
     
     public record GetPetPagedRequest(
         DateTime? Cursor,

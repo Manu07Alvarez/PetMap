@@ -7,43 +7,49 @@ using PetMap.Services.Utils;
 
 namespace PetMap.Services
 {
-    public class PetService(IPetRepository petRepository) : IPetService
+    public class PetService(IPetRepository petRepository, IFilesRepository filesRepository) : IPetService
     {
         private readonly IPetRepository petRepository = petRepository;
-        public async Task<PetPagedResponse> GetAllPets(GetPetPagedRequest data)
+        private readonly IFilesRepository filesRepository = filesRepository;
+        public async Task<PetPagedResponse> getAllPets(GetPetPagedRequest data)
         {
-            
-            PagedEntitiesResult<PetPost> pagedPets = await petRepository.GetAllPetsPage(
+
+            PagedEntitiesResult<PetPost> paged_pets = await petRepository.GetAllPetsPage(
                 data.Cursor,
                 data.RowNumber,
                 data.PageSize,
                 data.Options
             );
+            List<Stream> pet_image = [];
+            foreach (PetPost pet in paged_pets.Items)
+            {   
+                pet_image.Add(await filesRepository.FileGet("pet-images-bucket", pet.FileKey));
+            }
 
             PetPagedResponse pagedResponse = PetPaginationService.GetPagedData(
-                pagedPets.Items,
-                pagedPets.Pages,
+                paged_pets.Items,
+                paged_pets.Pages,
                 data.PageSize
             );
 
             return pagedResponse;
         } 
 
-        public async Task AddPet(PetRequest petRequest)
+        public async Task addPet(PostPetRequest petRequest)
         {
             PetPost petPost = petRequest.MapToPetPost();
             petRepository.Create(petPost);
             await petRepository.Save();
         }
 
-        public async Task UpdatePet(PetRequest petRequest)
+        public async Task UpdatePet(PostPetRequest petRequest)
         {
             PetPost petPost = petRequest.MapToPetPost();
             petRepository.Update(petPost);
             await petRepository.Save();
         }
 
-        public async Task DeletePet(PetRequest petRequest)
+        public async Task DeletePet(PostPetRequest petRequest)
         {
             PetPost petPost = petRequest.MapToPetPost();
             petRepository.Delete(petPost);

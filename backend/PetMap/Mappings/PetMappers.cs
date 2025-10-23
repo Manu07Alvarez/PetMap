@@ -2,12 +2,13 @@
 using PetMap.Dtos;
 using PetMap.Models;
 using NetTopologySuite.Geometries;
+using Amazon.S3.Model;
 
 namespace PetMap.Mappings
 {
     public static class PetMappers
     {
-        public static PetPost MapToPetPost(this PetRequest source)
+        public static PetPost MapToPetPost(this PostPetRequest source)
 
         {
             return new PetPost
@@ -21,18 +22,22 @@ namespace PetMap.Mappings
             };
         }
         
-        public static PetResponse MapToPetResponse(this PetPost source)
+        public static async Task<GetPetResponse> MapToPetResponse(this PetPost source, Stream stream_file)
         {
-            return new PetResponse
-            {
-                Id = source.Id,
-                Name = source.Name,
-                Description = source.Description,
-                Contact = source.Contact,
-                Location = new CoordinateDto(source.Location!.Coordinate.X, source.Location.Coordinate.Y),
-                Tags = source.Tags,
-                FileKey = source.FileKey
-            };
+            
+            using MemoryStream memoryStream = new();
+            await stream_file.CopyToAsync(memoryStream);
+            string file = Convert.ToBase64String(memoryStream.ToArray());
+            return new GetPetResponse(
+                id: source.Id,
+                contact: source.Contact,
+                description: source.Description,
+                stream_file: file,
+                location: new CoordinateDto(source.Location!.X, source.Location!.Y),
+                name: source.Name,
+                tags: source.Tags
+            );
+
         }
     }
 }

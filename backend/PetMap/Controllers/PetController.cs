@@ -32,12 +32,12 @@ namespace Petmap.Controllers
         private readonly IPetService petService = petService;
 
         [HttpPost]
-        [ProducesResponseType(typeof(PetRequest), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(PostPetRequest), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("AddPet")]
         [Consumes("application/json")]
-        public async Task<IActionResult> AddPet([FromBody] PetRequest petRequest)
+        public async Task<IActionResult> AddPet([FromBody] PostPetRequest petRequest)
         {
             try
             {

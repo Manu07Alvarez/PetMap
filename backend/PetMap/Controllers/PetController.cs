@@ -41,7 +41,7 @@ namespace Petmap.Controllers
         {
             try
             {
-                await petService.AddPet(petRequest);
+                await petService.addPet(petRequest);
                 return Created("AddPet", petRequest);
             }
             catch (Exception ex)
@@ -60,7 +60,7 @@ namespace Petmap.Controllers
         {
             try
             {
-                var response = await petService.GetAllPets(request);
+                var response = await petService.getAllPets(request);
                 return Ok(response);
             }
             catch (Exception ex)

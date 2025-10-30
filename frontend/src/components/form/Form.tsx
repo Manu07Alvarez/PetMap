@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { component$ } from '@builder.io/qwik';
+import { component$, event$ } from '@builder.io/qwik';
 import {
   valiForm$,
   useForm,
 } from '@modular-forms/qwik';
 import {PetsForm, useFormLoader, FormSchema, useFormAction} from '../PetsFormLoader'
-import * as v from 'valibot';
 import { Input } from './Input';
 import { TextInput } from './TextInput';
 import { FileInput } from './FileInput';
@@ -19,7 +18,7 @@ export default component$(() => {
   });
 
   return (
-    <Form>
+    <Form encType="multipart/form-data">
       <fieldset class="fieldset">
           <div class="flex flex-1 justify-center py-5">
             <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
@@ -32,10 +31,9 @@ export default component$(() => {
                         {(field, props) =>(
                           <FileInput
                             {...props}
-                            name='image'
+                            name='file'
                             class='file-input'
                             label='Imagen'
-                            value={field.value}
                             error={field.error}
                             required
                           />
@@ -57,6 +55,7 @@ export default component$(() => {
                         class='flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal'
                         value={field.value}
                         error={field.error}
+                        required
                         placeholder="Ingresa el nombre de la mascota"
                       />
                     )}

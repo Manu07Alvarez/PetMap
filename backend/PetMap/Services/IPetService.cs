@@ -6,11 +6,11 @@ namespace PetMap.Services
 {
     public interface IPetService
     {
-        Task<PetPagedResponse> GetAllPets(GetPetPagedRequest data);
-        Task AddPet(PostPetRequest petRequest);
+        Task<PetPagedResponse> getAllPets(GetPetPagedRequest data);
+        Task addPet(PostPetRequest petRequest);
         //Task<PetResponse> GetPetById(int id);
-        Task UpdatePet(PostPetRequest petRequest);
-        Task DeletePet(PostPetRequest petRequest);
+        Task updatePet(PostPetRequest petRequest);
+        Task deletePet(PostPetRequest petRequest);
         //Task<List<PetResponse>> GetPetsByUserId(int userId);
     }
 }

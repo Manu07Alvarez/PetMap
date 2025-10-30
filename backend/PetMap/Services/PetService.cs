@@ -23,13 +23,14 @@ namespace PetMap.Services
             List<Stream> pet_image = [];
             foreach (PetPost pet in paged_pets.Items)
             {   
-                pet_image.Add(await filesRepository.FileGet("pet-images-bucket", pet.FileKey));
+                pet_image.Add(await filesRepository.FileGet("petmap", pet.FileKey));
             }
 
-            PetPagedResponse pagedResponse = PetPaginationService.GetPagedData(
+            PetPagedResponse pagedResponse = await PetPaginationService.GetPagedData(
                 paged_pets.Items,
                 paged_pets.Pages,
-                data.PageSize
+                data.PageSize,
+                pet_image
             );
 
             return pagedResponse;
@@ -37,19 +38,20 @@ namespace PetMap.Services
 
         public async Task addPet(PostPetRequest petRequest)
         {
+            await filesRepository.FileInsert("petmap", petRequest.File!.FileName, petRequest.File.OpenReadStream());
             PetPost petPost = petRequest.MapToPetPost();
             petRepository.Create(petPost);
             await petRepository.Save();
         }
 
-        public async Task UpdatePet(PostPetRequest petRequest)
+        public async Task updatePet(PostPetRequest petRequest)
         {
             PetPost petPost = petRequest.MapToPetPost();
             petRepository.Update(petPost);
             await petRepository.Save();
         }
 
-        public async Task DeletePet(PostPetRequest petRequest)
+        public async Task deletePet(PostPetRequest petRequest)
         {
             PetPost petPost = petRequest.MapToPetPost();
             petRepository.Delete(petPost);

@@ -1,19 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as v from 'valibot';
-import { routeLoader$ } from '@builder.io/qwik-city';
+import { 
+  routeLoader$, 
+  server$,
+} from '@builder.io/qwik-city';
 import {
   type InitialValues,
   formAction$,
   valiForm$
 } from '@modular-forms/qwik';
 import { NoSerialize } from '@builder.io/qwik';
-
-const isFile = (input: unknown) => input instanceof File;
+import got from 'got';
 
 export const FormSchema = v.object({
   file: v.pipe(
-      v.file("La imagen es obligatoria"),
-      v.mimeType(['image/jpeg', 'image/png'], 'Elegir solo jpeg o png'),       
+      v.custom<File>((file) => file instanceof File, ("La imagen es obligatoria")),
+      v.mimeType(['image/jpeg', 'image/png', 'image/webp'], 'Elegir solo jpeg, png o webp'),       
     ),
 
   name: v.optional(
@@ -36,7 +38,7 @@ export const FormSchema = v.object({
 });
 
 export type PetsForm = {
-  file: NoSerialize<File>; // manual override
+  file: NoSerialize<File> | undefined; // manual override
   name?: string;
   contact: string;
   description: string;
@@ -54,10 +56,18 @@ export const useFormLoader = routeLoader$<InitialValues<PetsForm>>(() => {
     tags: [],
   };
 });
+const  sendFormValues = server$(async function(values) {
+    console.log(this.env.get('API_URL'));
+    await got.post(`${this.env.get('API_URL')}/api/pets/AddPet`, {
+      json: {
+        values,
+      },
+    });
+})
 
 export const useFormAction = formAction$<PetsForm>(
-  (values) => {
-    console.log("DEBUG: values", values);
+  async (values) => {
+    await sendFormValues(values);
   },
   {  
     validate: valiForm$(FormSchema),

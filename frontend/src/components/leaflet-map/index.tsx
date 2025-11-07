@@ -1,5 +1,4 @@
 import {
-  $,
   component$,
   noSerialize,
   useSignal,
@@ -7,7 +6,7 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 
-import { Map, marker } from "leaflet";
+import L, { Map } from "leaflet";
 import type { MapProps } from "~/models/map";
 
 export const LeafletMap = component$<MapProps>(({ location }: MapProps) => {
@@ -42,7 +41,7 @@ export const LeafletMap = component$<MapProps>(({ location }: MapProps) => {
       number,
     ];
 
-    const map: any = new Map("map").setView(
+    const map = new Map("map").setView(
       centerPosition,
       locationData.zoom || 14,
     );
@@ -55,17 +54,16 @@ export const LeafletMap = component$<MapProps>(({ location }: MapProps) => {
 
     // Assign select boundary box to use in OSM API if you want
     locationData.boundaryBox = getBoundaryBox(map);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    locationData.marker &&
-      marker(centerPosition).bindPopup(`Soraluze (Gipuzkoa) :)`).addTo(map);
+    
+    const layer_group =  L.layerGroup()
 
     mapContainer$.value = noSerialize(map);
+    
     map.on("click", (e: any) => {
       const { lat, lng } = e.latlng;
-      marker(point.value).removeFrom(map);
+      layer_group.clearLayers();
       point.value = [lat, lng];
-      marker(point.value).addTo(map);
+      layer_group.addTo(map).addLayer(marker(point.value));
     });
    
   });

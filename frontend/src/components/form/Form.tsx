@@ -8,6 +8,7 @@ import {PetsForm, useFormLoader, FormSchema, useFormAction} from '../PetsFormLoa
 import { Input } from './Input';
 import { TextInput } from './TextInput';
 import { FileInput } from './FileInput';
+import { MapInput } from './MapInput';
 
 export default component$(() => {
   const [, {Form, Field}] = useForm<PetsForm>({
@@ -22,7 +23,11 @@ export default component$(() => {
       <fieldset class="fieldset">
           <div class="flex flex-1 justify-center py-5">
             <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-              <div class="flex flex-wrap justify-between gap-3 p-4"><p class="text-[#121217] tracking-light text-[32px] font-bold leading-tight min-w-72">Informacion Mascota</p></div>
+              <div class="flex flex-wrap justify-between gap-3 p-4">
+                <p class="text-[#121217] tracking-light text-[32px] font-bold leading-tight min-w-72">
+                  Informacion Mascota
+                </p>
+              </div>
               <div class="p-4 @container">
                 <div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start">
                   <div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1 py-4 @xl:px-4">
@@ -66,10 +71,9 @@ export default component$(() => {
                 <label class="flex flex-col min-w-40 flex-1">
                   <Field name="location">
                     {(field, props) =>(
-                      <Input
+                      <MapInput
                         {...props}
                         name='location'
-                        type='text'
                         class='flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal'
                         label='Ubicación'
                         value={field.value}

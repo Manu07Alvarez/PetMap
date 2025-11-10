@@ -69,7 +69,7 @@ export default component$(() => {
               </div>
               <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                 <label class="flex flex-col min-w-40 flex-1">
-                  <Field name="location">
+                  <Field name="location" type='string[]'>
                     {(field, props) =>(
                       <MapInput
                         {...props}

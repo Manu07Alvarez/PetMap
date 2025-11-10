@@ -34,7 +34,9 @@ export const FormSchema = v.object({
   tags: v.optional(
     v.array(v.string())
   ),
-  location: v.string(),
+  location: v.array(
+    v.string()
+  ),
 });
 
 export type PetsForm = {
@@ -43,7 +45,7 @@ export type PetsForm = {
   contact: string;
   description: string;
   tags?: string[];
-  location: string;
+  location: string[];
 }
 
 export const useFormLoader = routeLoader$<InitialValues<PetsForm>>(() => {
@@ -51,7 +53,7 @@ export const useFormLoader = routeLoader$<InitialValues<PetsForm>>(() => {
     name: '',
     file: undefined,
     description: '',
-    location: '',
+    location: [],
     contact: '',
     tags: [],
   };
@@ -72,5 +74,6 @@ export const useFormAction = formAction$<PetsForm>(
   {  
     validate: valiForm$(FormSchema),
     files: ['file'],
+    arrays: ['location']
   }
 );

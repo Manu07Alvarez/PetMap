@@ -1,6 +1,7 @@
 import {
   component$,
   noSerialize,
+  useContext,
   useSignal,
   useStyles$,
   useVisibleTask$,
@@ -8,22 +9,24 @@ import {
 
 import L, { Map } from "leaflet";
 import type { MapProps } from "~/models/map";
+import { POINT_CTX } from "../form/MapInput";
 
 export const LeafletMap = component$<MapProps>(({ location }: MapProps) => {
   // Modify with your preferences. By default take all screen
   useStyles$(`
     #map {
       width: 100%;
-      height: 100vh;
+      height: 100%;
     }
   `);
 
+  
+
   const mapContainer$ = useSignal<Map>();
 
+  const map_point = useContext(POINT_CTX)
 
-  const point = useSignal<[number, number]>([0, 0]);
-
-  useVisibleTask$(async ({ track }) => {
+  useVisibleTask$(async({ track }) => {
     track(location);
 
     const { tileLayer, marker } = await import("leaflet");
@@ -62,10 +65,12 @@ export const LeafletMap = component$<MapProps>(({ location }: MapProps) => {
     map.on("click", (e: any) => {
       const { lat, lng } = e.latlng;
       layer_group.clearLayers();
-      point.value = [lat, lng];
-      layer_group.addTo(map).addLayer(marker(point.value));
+      map_point.value = [lat, lng];
+      layer_group.addTo(map).addLayer(marker(map_point.value));
     });
    
   });
-  return <div id="map"></div>;
+  return <div 
+    id="map"
+  ></div>;
 });

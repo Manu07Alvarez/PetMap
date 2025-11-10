@@ -1,15 +1,14 @@
-import { $, useSignal, type QRL } from '@builder.io/qwik';
+import { $, createContextId, Signal, useContextProvider, useSignal, type QRL } from '@builder.io/qwik';
 import { component$, useStyles$ } from '@builder.io/qwik';
 import leafletStyles from "../../../node_modules/leaflet/dist/leaflet.css?inline";
 import { LeafletMap } from '../leaflet-map';
 import { LocationsProps } from '~/models/location';
-import { Modal, } from '@qwik-ui/headless';
 type MapInputProps = {
   name: string;
   label?: string;
   placeholder?: string;
   class?: string;
-  value: string | undefined;
+  value: string[] | undefined;
   error: string;
   required?: boolean;
   ref: QRL<(element: HTMLTextAreaElement) => void>;
@@ -17,7 +16,7 @@ type MapInputProps = {
   onChange$: (event: Event, element: HTMLTextAreaElement) => void;
   onBlur$: (event: Event, element: HTMLTextAreaElement) => void;
 };
-
+export const POINT_CTX = createContextId<Signal<[number,number]>>("point"); 
 export const MapInput = component$(
   ({ label, error, ...props }: MapInputProps) => {
     const currentLocation = useSignal<LocationsProps>({
@@ -39,26 +38,45 @@ export const MapInput = component$(
     // );
     useStyles$(leafletStyles);
     const { name, required } = props;
+    const map_point = useSignal<[number, number]>([0, 0]);
+    useContextProvider(POINT_CTX, map_point);
     return (
-          <div>
-            {label && (
-            <label>
-              <p class="text-[#121217] text-base font-medium leading-normal pb-2">{label} {!required && <span>(Opcional)</span>}</p>
-              <Modal.Root>
-                <Modal.Trigger type='button'>Ubicacion</Modal.Trigger>
-                <Modal.Panel class="w-full">
-                  <LeafletMap location={currentLocation}/>
-                  <footer>
-                    <Modal.Close>
-                      Guardar
-                    </Modal.Close>
-                  </footer>
-                  </Modal.Panel>
-              </Modal.Root>
-              {error && <div id={`${name}-error`}>{error}</div>}
-            </label>
-            )}
-          </div>
+      <div>
+        {label && (
+        <label>
+          <p class="text-[#121217] text-base font-medium leading-normal pb-2">{label} {!required && <span>(Opcional)</span>}</p>
+            <button class="btn" type='button' onClick$={() =>
+              document.getElementById('my_modal_1')!.showModal()
+            }>
+              Ubicacion
+            </button>
+            <dialog id="my_modal_1" class="modal">
+              <div class="sin-reset modal-box h-1/2">
+                <LeafletMap location={currentLocation}/>
+                <div class="modal-action">
+                  <button 
+                    type='button' 
+                    class="btn" 
+                    onClick$={() => {
+                    const modal = document.getElementById('my_modal_1') as HTMLDialogElement;
+                    modal?.close(); // cerrar modal manualmente
+                  }}>
+                    Guardar
+                  <input 
+                    type='hidden'
+                    {...props}
+                    value={JSON.stringify({x: map_point.value[0], y: map_point.value[1]})}
+                  >
+                  
+                  </input>
+                  </button>
+                </div>
+              </div>
+            </dialog>
+          {error && <div id={`${name}-error`}>{error}</div>}
+        </label>
+        )}
+      </div>
     );
   }
 );

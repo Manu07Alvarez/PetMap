@@ -23,16 +23,16 @@ export const Input = component$(
       <div>
         {label && (
           <label for={name}>
-            <p class="text-[#121217] text-base font-medium leading-normal pb-2">{label} {!required && <span class="text-gray-500">(Opcional)</span>}</p>
+            <p class="text-base-content text-base font-medium leading-normal pb-2">{label} {!required && <span class="text-base-content/60">(Opcional)</span>}</p>
             <input
               {...props}
               id={name}
               aria-invalid={!!error}
               aria-errormessage={`${name}-error`}
               class={clsx(
-                'block w-full text-sm text-gray-900',
+                'block w-full text-sm text-base-content placeholder:text-base-content/60',
                 props.class,
-                error && 'border-red-500'
+                error && 'border-error'
               )}
             />
             {error && <div id={`${name}-error`}>{error}</div>}

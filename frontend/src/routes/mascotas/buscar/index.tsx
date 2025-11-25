@@ -1,74 +1,184 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useSignal, $ } from "@builder.io/qwik";
 import AnimalsCards from "~/components/search/animals.cards";
 
 export default component$(() => {
-    return (
-        <div
-            class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
-            style='--select-button-svg: url(&apos;data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(103,106,131)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e&apos;); font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
-        >
-            <div class="layout-container flex h-full grow flex-col">
+    const selectedTags = useSignal<string[]>([]);
+    const availableTags = ["Lost", "Found", "Injured", "Friendly", "Aggressive", "Microchipped", "Collar", "No Collar"];
 
-            <div class="gap-1 px-6 flex flex-1 justify-center py-5">
-                <div class="layout-content-container flex flex-col max-w-[920px] flex-1">
-                    <div class="flex flex-wrap justify-between gap-3 p-4">
-                        <p class="text-[#121217] tracking-light text-[32px] font-bold leading-tight min-w-72">Search for Lost Pets</p>
-                    </div>
-                    <h2 class="text-[#121217] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Search Results</h2>
-                    <AnimalsCards></AnimalsCards>
-                </div>
-                <div class="layout-content-container flex flex-col w-[360px]">
-                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                    <label class="flex flex-col min-w-40 flex-1">
-                    <p class="text-[#121217] text-base font-medium leading-normal pb-2">Animal Type</p>
-                    <select
-                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 bg-[image:--select-button-svg] placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal"
-                    >
-                        <option value="one"></option>
-                        <option value="two">two</option>
-                        <option value="three">three</option>
-                    </select>
-                    </label>
-                </div>
-                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                    <label class="flex flex-col min-w-40 flex-1">
-                    <p class="text-[#121217] text-base font-medium leading-normal pb-2">Breed</p>
-                    <select
-                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 bg-[image:--select-button-svg] placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal"
-                    >
-                        <option value="one"></option>
-                        <option value="two">two</option>
-                        <option value="three">three</option>
-                    </select>
-                    </label>
-                </div>
-                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                    <label class="flex flex-col min-w-40 flex-1">
-                    <p class="text-[#121217] text-base font-medium leading-normal pb-2">Last Seen Location</p>
+    const toggleTag = $((tag: string) => {
+        if (selectedTags.value.includes(tag)) {
+            selectedTags.value = selectedTags.value.filter(t => t !== tag);
+        } else {
+            selectedTags.value = [...selectedTags.value, tag];
+        }
+    });
+
+    // Reusable filter content component
+    const FilterContent = () => (
+        <>
+            {/* Name Search */}
+            <div class="mb-5">
+                <label class="flex flex-col">
+                    <p class="text-base-content text-sm font-semibold mb-2">
+                        Pet Name
+                    </p>
                     <input
-                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal"
-                        value=""
+                        type="text"
+                        placeholder="e.g., Buddy, Max..."
+                        class="input input-bordered w-full rounded-xl text-base-content bg-base-100 h-12 text-sm"
                     />
-                    </label>
-                </div>
-                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                    <label class="flex flex-col min-w-40 flex-1">
-                    <p class="text-[#121217] text-base font-medium leading-normal pb-2">Date Lost</p>
+                </label>
+            </div>
+
+            {/* Animal Type */}
+            <div class="mb-5">
+                <label class="flex flex-col">
+                    <p class="text-base-content text-sm font-semibold mb-2">
+                        Animal Type
+                    </p>
+                    <select class="select select-bordered w-full rounded-xl text-base-content bg-base-100 h-12 text-sm">
+                        <option value="">All Types</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                        <option value="bird">Bird</option>
+                        <option value="rabbit">Rabbit</option>
+                        <option value="other">Other</option>
+                    </select>
+                </label>
+            </div>
+
+            {/* Location Search */}
+            <div class="mb-5">
+                <label class="flex flex-col">
+                    <p class="text-base-content text-sm font-semibold mb-2">
+                        Location
+                    </p>
                     <input
-                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#121217] focus:outline-0 focus:ring-0 border border-[#dddde4] bg-white focus:border-[#dddde4] h-14 placeholder:text-[#676a83] p-[15px] text-base font-normal leading-normal"
-                        value=""
+                        type="text"
+                        placeholder="City, neighborhood, or address"
+                        class="input input-bordered w-full rounded-xl text-base-content bg-base-100 h-12 text-sm"
                     />
+                </label>
+            </div>
+
+            {/* Date Range */}
+            <div class="mb-5">
+                <p class="text-base-content text-sm font-semibold mb-2">
+                    Date Range
+                </p>
+                <div class="flex flex-col gap-3">
+                    <label class="flex flex-col">
+                        <span class="text-base-content/70 text-xs mb-1">From</span>
+                        <input
+                            type="date"
+                            class="input input-bordered w-full rounded-xl text-base-content bg-base-100 h-12 text-sm"
+                        />
                     </label>
-                </div>
-                <div class="flex px-4 py-3 justify-end">
-                    <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#969ce3] text-[#121217] text-sm font-bold leading-normal tracking-[0.015em]"
-                    >
-                    <span class="truncate">Search</span>
-                    </button>
-                </div>
+                    <label class="flex flex-col">
+                        <span class="text-base-content/70 text-xs mb-1">To</span>
+                        <input
+                            type="date"
+                            class="input input-bordered w-full rounded-xl text-base-content bg-base-100 h-12 text-sm"
+                        />
+                    </label>
                 </div>
             </div>
+
+            {/* Tags Multi-Select */}
+            <div class="mb-6">
+                <p class="text-base-content text-sm font-semibold mb-3">
+                    Tags
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    {availableTags.map((tag) => (
+                        <button
+                            key={tag}
+                            onClick$={() => toggleTag(tag)}
+                            class={`badge badge-lg cursor-pointer transition-all duration-200 ${
+                                selectedTags.value.includes(tag)
+                                    ? "badge-primary"
+                                    : "badge-outline hover:badge-primary hover:badge-outline"
+                            }`}
+                        >
+                            {tag}
+                        </button>
+                    ))}
+                </div>
+                {selectedTags.value.length > 0 && (
+                    <div class="mt-3 pt-3 border-t border-base-300">
+                        <p class="text-xs text-base-content/60 mb-2">
+                            Selected: {selectedTags.value.length}
+                        </p>
+                        <button
+                            onClick$={() => (selectedTags.value = [])}
+                            class="text-xs text-error hover:underline"
+                        >
+                            Clear all tags
+                        </button>
+                    </div>
+                )}
+            </div>
+
+            {/* Action Buttons */}
+            <div class="flex gap-3">
+                <button class="btn btn-outline flex-1 rounded-xl h-12 text-sm">
+                    Clear All
+                </button>
+                <button class="btn btn-primary flex-1 rounded-xl h-12 text-sm font-bold">
+                    Apply Filters
+                </button>
+            </div>
+        </>
+    );
+
+    return (
+        <div
+            class="relative flex size-full min-h-screen flex-col bg-base-100 group/design-root overflow-x-hidden"
+            style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
+        >
+            <div class="layout-container flex h-full grow flex-col">
+                <div class="gap-6 px-6 flex flex-1 justify-center py-5">
+                    {/* Results Section */}
+                    <div class="layout-content-container flex flex-col w-full lg:max-w-[920px] flex-1">
+                        <div class="flex flex-wrap justify-between items-center gap-3 p-4">
+                            <p class="text-base-content tracking-light text-[32px] font-bold leading-tight">
+                                Search for Lost Pets
+                            </p>
+                            
+                            {/* Mobile Filter Dropdown - Only visible on small screens */}
+                            <div class="lg:hidden dropdown dropdown-end">
+                                <label tabIndex={0} class="btn btn-primary gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                                    </svg>
+                                    Filters
+                                    {selectedTags.value.length > 0 && (
+                                        <span class="badge badge-sm badge-secondary">{selectedTags.value.length}</span>
+                                    )}
+                                </label>
+                                <div tabIndex={0} class="dropdown-content z-[1] mt-3 w-96 max-w-[calc(100vw-2rem)]">
+                                    <div class="bg-base-200 rounded-2xl p-6 shadow-xl max-h-[80vh] overflow-y-auto">
+                                        <h3 class="text-base-content text-xl font-bold mb-6">Filters</h3>
+                                        <FilterContent />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-base-content text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+                            Search Results
+                        </h2>
+                        <AnimalsCards />
+                    </div>
+
+                    {/* Desktop Filters Sidebar - Only visible on large screens */}
+                    <div class="hidden lg:flex layout-content-container flex-col w-[380px]">
+                        <div class="bg-base-200 rounded-2xl p-6 sticky top-5 shadow-lg">
+                            <h3 class="text-base-content text-xl font-bold mb-6">Filters</h3>
+                            <FilterContent />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

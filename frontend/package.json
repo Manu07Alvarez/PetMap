@@ -28,22 +28,24 @@
     "@eslint/js": "latest",
     "@modular-forms/qwik": "^0.29.1",
     "@types/leaflet": "^1.9.6",
-    "@types/node": "20.14.11",
-    "eslint": "9.25.1",
+    "@types/node": "^22.12.5",
+    "eslint": "^9.39.1",
     "eslint-plugin-qwik": "^1.14.1",
     "globals": "16.0.0",
     "prettier": "3.3.3",
-    "typescript": "5.4.5",
-    "typescript-eslint": "8.26.1",
-    "vite": "5.3.5",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.26.1",
+    "vite": "^7.2.4",
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
     "clsx": "^2.1.1",
+    "country-flag-icons": "^1.6.4",
     "daisyui": "^5.0.43",
     "got": "^14.6.0",
     "leaflet": "1.9.4",
+    "libphonenumber-js": "^1.12.29",
     "tailwindcss": "^4.1.11"
   }
 }

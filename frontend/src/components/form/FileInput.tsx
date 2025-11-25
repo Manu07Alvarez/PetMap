@@ -7,15 +7,15 @@ type InputProps = {
   placeholder?: string;
   error: string;
   multiple?: boolean;
-  required?: boolean;
+  required: boolean;
   ref: QRL<(element: HTMLInputElement) => void>;
   onInput$: (event: Event, element: HTMLInputElement) => void;
   onChange$: (event: Event, element: HTMLInputElement) => void;
   onBlur$: (event: Event, element: HTMLInputElement) => void;
 };
 
-export const FileInput = component$(({ label, error, ...props }: InputProps) => {
-  const { name, required } = props;
+export const FileInput = component$(({ error, ...props }: InputProps) => {
+  const { name } = props;
 
   const previewUrl = useSignal<string>();
   
@@ -39,12 +39,7 @@ export const FileInput = component$(({ label, error, ...props }: InputProps) => 
   });
 
   return (
-    <div class="mb-4">
-      {label && (
-        <label for={name} class="block text-[#121217] text-base font-medium leading-normal pb-2">
-          {label} {!required && <span class="text-gray-500">(Opcional)</span>}
-        </label>
-      )}
+    <div class="group flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-border-light dark:border-border-dark rounded-lg cursor-pointer bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700/80 transition-colors relative">
       <input
         {...props}
         id={name}
@@ -58,26 +53,38 @@ export const FileInput = component$(({ label, error, ...props }: InputProps) => 
         }
           
         class={clsx(
-          'block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100',
+          'absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10',
           props.class,
           error && 'border-red-500'
         )}
       />
-      {error && (
-        <div id={`${name}-error`} class="text-red-600 text-sm mt-1">
-          {error}
-        </div>
-      )}
-
-      {previewUrl.value && (
-        <div class="mt-3">
+      {previewUrl.value ? (
+        <div class="relative w-full h-full p-2">
           <img
             src={previewUrl.value}
             alt="Vista previa"
-            width={"200"}
-            height={"200"}
-            class="max-w-full max-h-64 rounded border border-gray-200"
+            width={400}
+            height={300}
+            class="w-full h-full object-contain rounded-lg"
           />
+          <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+            <span class="text-white font-bold bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
+              Cambiar imagen
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div class="flex flex-col items-center justify-center pt-5 pb-6 pointer-events-none">
+          <span class="material-icons-outlined text-primary text-4xl mb-3">cloud_upload</span>
+          <p class="mb-2 text-sm text-subtext-light dark:text-subtext-dark">
+            <span class="font-semibold">Drag &amp; Drop or Click to Upload Images</span>
+          </p>
+        </div>
+      )}
+
+      {error && (
+        <div id={`${name}-error`} class="text-red-600 text-sm mt-1 absolute bottom-2">
+          {error}
         </div>
       )}
     </div>

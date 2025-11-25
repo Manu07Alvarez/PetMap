@@ -1,24 +1,25 @@
-import { $, createContextId, Signal, useContextProvider, useSignal, type QRL } from '@builder.io/qwik';
+import { createContextId, QRL, Signal, useContext, useContextProvider, useSignal, useTask$ } from '@builder.io/qwik';
 import { component$, useStyles$ } from '@builder.io/qwik';
 import leafletStyles from "../../../node_modules/leaflet/dist/leaflet.css?inline";
 import { LeafletMap } from '../leaflet-map';
 import { LocationsProps } from '~/models/location';
+import { POINT_CTX_FINAL } from './Form';
 type MapInputProps = {
   name: string;
   label?: string;
   placeholder?: string;
   class?: string;
-  value: string[] | undefined;
   error: string;
   required?: boolean;
-  ref: QRL<(element: HTMLTextAreaElement) => void>;
-  onInput$: (event: Event, element: HTMLTextAreaElement) => void;
-  onChange$: (event: Event, element: HTMLTextAreaElement) => void;
-  onBlur$: (event: Event, element: HTMLTextAreaElement) => void;
+  ref: QRL<(element: HTMLInputElement) => void>;
+  onInput$: (event: Event, element: HTMLInputElement) => void;
+  onChange$: (event: Event, element: HTMLInputElement) => void;
+  onBlur$: (event: Event, element: HTMLInputElement) => void;
 };
 export const POINT_CTX = createContextId<Signal<[number,number]>>("point"); 
 export const MapInput = component$(
   ({ label, error, ...props }: MapInputProps) => {
+    const point = useContext(POINT_CTX_FINAL);
     const currentLocation = useSignal<LocationsProps>({
     name: "Soraluze",
     point: [43.17478, -2.41172],
@@ -39,14 +40,18 @@ export const MapInput = component$(
     useStyles$(leafletStyles);
     const { name, required } = props;
     const map_point = useSignal<[number, number]>([0, 0]);
+    useTask$(({ track }) => {
+      track(() => map_point.value);
+      point.items = [JSON.stringify({x: map_point.value[0], y: map_point.value[1]})];
+    });
     useContextProvider(POINT_CTX, map_point);
     return (
       <div>
         {label && (
         <label>
-          <p class="text-[#121217] text-base font-medium leading-normal pb-2">{label} {!required && <span>(Opcional)</span>}</p>
+          <p class="text-base-content text-base font-medium leading-normal pb-2">{label} {!required && <span>(Opcional)</span>}</p>
             <button class="btn" type='button' onClick$={() =>
-              document.getElementById('my_modal_1')!.showModal()
+              (document.getElementById('my_modal_1') as HTMLDialogElement)!.showModal()
             }>
               Ubicacion
             </button>
@@ -62,13 +67,6 @@ export const MapInput = component$(
                     modal?.close(); // cerrar modal manualmente
                   }}>
                     Guardar
-                  <input 
-                    type='hidden'
-                    {...props}
-                    value={JSON.stringify({x: map_point.value[0], y: map_point.value[1]})}
-                  >
-                  
-                  </input>
                   </button>
                 </div>
               </div>

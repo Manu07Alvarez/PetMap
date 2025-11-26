@@ -64,7 +64,7 @@ export default component$(() => {
 
           <a 
             href="/mascotas/subir" 
-            class={`flex items-center rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-200 group ${
+            class={`flex items-center rounded-lg text-base-content hover:bg-base-content/10 transition-all duration-200 group ${
               sidebarOpen.value ? 'gap-3 px-4 py-3' : 'flex-col gap-1 px-2 py-3'
             }`}
           >

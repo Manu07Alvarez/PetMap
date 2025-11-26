@@ -9,7 +9,7 @@ export default component$(() => {
           PetMap te ayuda a conectar con personas que han encontrado mascotas o que están buscando las suyas. Publica un reporte o busca en nuestra base de datos.
         </p>
           <div class="flex justify-center space-x-4">
-            <a href="/busqueda">
+            <a href="mascotas/buscar">
               <button class="btn btn-primary btn-lg text-lg font-semibold flex items-center space-x-2">
                 <span class="material-icons-outlined">search</span>
                 <span>Buscar Mascotas</span>
@@ -29,19 +29,23 @@ export default component$(() => {
           <span class="material-icons-outlined text-5xl text-success mb-3" style="font-size: 43px;">add_location_alt</span>
           <h3 class="text-xl font-semibold text-base-content mb-2">Encontré una Mascota</h3> 
           <p class="text-base-content/70 text-sm mb-4">Reporta una mascota que encontraste para ayudarla a regresar con su familia.</p>
-          <button class="btn btn-success text-sm text-black hover:text-white transition-colors btn-sm text-md font-semibold flex items-center space-x-2 mx-auto">
-          <span class="material-icons-outlined text-base">add_circle_outline</span>
-          <span>Reportar Encontrada</span>
-          </button>
+          <a href="mascotas/subir">
+            <button class="btn btn-success text-sm text-black hover:text-white transition-colors btn-sm text-md font-semibold flex items-center space-x-2 mx-auto">
+            <span class="material-icons-outlined text-base">add_circle_outline</span>
+            <span>Reportar Encontrada</span>
+            </button>
+          </a>
           </div>
           <div class="flex-1 text-center p-6 border border-base-300 bg-base-100 rounded-lg hover:shadow-xl transition-shadow">
           <span class="material-icons-outlined text-5xl text-warning mb-3" style="font-size: 43px;">pets</span>
           <h3 class="text-xl font-semibold text-base-content mb-2">Perdí mi Mascota</h3>
           <p class="text-base-content/70 text-sm mb-4">Publica un reporte de tu mascota perdida para que la comunidad pueda ayudarte.</p>
-          <button class="btn btn-warning text-sm text-black hover:text-white transition-colors btn-sm text-md font-semibold flex items-center space-x-2 mx-auto">
-          <span class="material-icons-outlined text-base">error_outline</span>
-          <span>Reportar Perdida</span>
-          </button>
+          <a href="mascotas/subir">
+            <button class="btn btn-warning text-sm text-black hover:text-white transition-colors btn-sm text-md font-semibold flex items-center space-x-2 mx-auto">
+            <span class="material-icons-outlined text-base">error_outline</span>
+            <span>Reportar Perdida</span>
+            </button>
+          </a>
           </div>
           </div>
           </div>

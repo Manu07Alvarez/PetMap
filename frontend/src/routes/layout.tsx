@@ -1,6 +1,6 @@
 import { component$, Slot, useSignal, $ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
-import Image from '../assets/petmap.svg?jsx'
+import Image from '../../public/petmap.svg?jsx'
 import type { DocumentHead } from "@builder.io/qwik-city";
 import "../global.css";
 
@@ -28,7 +28,7 @@ export default component$(() => {
       >
         {/* Sidebar Header */}
         <div class={`p-4 border-b border-base-content/10 flex items-center ${sidebarOpen.value ? 'gap-3' : 'justify-center'}`}>
-          <Image class="w-10 h-10 object-contain hover:scale-110 transition-transform duration-300" viewBox="0 0 550 700" />
+          <Image class="w-15 h-15 object-contain hover:scale-110 transition-transform duration-300" viewBox="0 0 550 700" />
           <span class={`text-lg font-bold text-base-content whitespace-nowrap transition-opacity duration-300 ${sidebarOpen.value ? 'opacity-100' : 'opacity-0 w-0'}`}>PetMap</span>
         </div>
 

@@ -11,6 +11,7 @@
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
+    "build.server": "qwik check-client src dist && vite build -c adapters/fastify/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
     "deploy": "echo 'Run \"npm run qwik add\" to install a server adapter'",
     "dev": "vite --mode ssr",
@@ -19,6 +20,7 @@
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview --open",
+    "serve": "node server/entry.fastify",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
   },
@@ -29,6 +31,7 @@
     "@modular-forms/qwik": "^0.29.1",
     "@types/leaflet": "^1.9.6",
     "@types/node": "^22.12.5",
+    "dotenv": "^16.3.2",
     "eslint": "^9.39.1",
     "eslint-plugin-qwik": "^1.14.1",
     "globals": "16.0.0",
@@ -39,10 +42,14 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
+    "@fastify/compress": "^6.2.1",
+    "@fastify/static": "^6.10.1",
     "@tailwindcss/vite": "^4.1.11",
     "clsx": "^2.1.1",
     "country-flag-icons": "^1.6.4",
     "daisyui": "^5.0.43",
+    "fastify": "^4.17.0",
+    "fastify-plugin": "^4.5.0",
     "got": "^14.6.0",
     "leaflet": "1.9.4",
     "libphonenumber-js": "^1.12.29",

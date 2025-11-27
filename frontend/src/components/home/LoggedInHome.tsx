@@ -162,9 +162,9 @@ export default component$(() => {
                           </svg>
                           Editar
                         </button>
-                        <button class="btn btn-sm btn-primary">
+                        <a href={`/mascotas/${post.id}`} class="btn btn-sm btn-primary">
                           Ver Detalles
-                        </button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -200,8 +200,9 @@ export default component$(() => {
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {recentPets.map((pet) => (
-              <div 
+              <a 
                 key={pet.id}
+                href={`/mascotas/${pet.id}`}
                 class="card bg-base-200 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-base-content/10 overflow-hidden group cursor-pointer"
               >
                 <figure class="relative overflow-hidden h-48">
@@ -238,7 +239,7 @@ export default component$(() => {
                     })}
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </section>

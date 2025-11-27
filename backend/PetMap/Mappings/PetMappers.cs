@@ -15,20 +15,20 @@ namespace PetMap.Mappings
         /// <param name="source">The PostPetRequest to map.</param>
         /// <returns>The mapped PetPost.</returns>
         public static PetPost MapToPetPost(this PostPetRequest source)
-
         {
-            return new PetPost
-            {
-                Name = source.Name,
-                DatePet = source.DatePet,
-                TypePet = source.TypePet,
-                Description = source.Description,
-                ContactPhone = source.Contact,
-                PetStatus = (PetStatus)source.PetStatus,
-                Location = new Point(source.Location!.ToCoordinate),
-                Tags = source.Tags,
-                FileKey = source.File!.FileName
-            };
+					return new PetPost
+					{
+						Name = source.Name,
+						DatePet = source.DatePet,
+						TypePet = source.TypePet,
+						Description = source.Description,
+						ContactPhone = source.Contact,
+						PetStatus = (PetStatus)source.PetStatus,
+						Location = new Point(source.Location!.ToCoordinate),
+						Tags = source.Tags,
+						FileKey = source.File!.FileName,
+						UserId = source.UserId
+					};
         }
         
         /// <summary>
@@ -54,7 +54,8 @@ namespace PetMap.Mappings
                 stream_file: file,
                 location: new CoordinateDto(source.Location!.X, source.Location!.Y),
                 name: source.Name,
-                tags: source.Tags
+                tags: source.Tags,
+								autor: source.UserId
             );
 
         }

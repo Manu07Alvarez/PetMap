@@ -21,12 +21,12 @@ public static class FiltersRepository
         if (!string.IsNullOrEmpty(options.Contact))
         {
             sQuery = sQuery
-            .Where(p => EF.Functions.TrigramsStrictWordSimilarity(p.Post.Contact, options.Contact) > 0)
+            .Where(p => EF.Functions.TrigramsStrictWordSimilarity(p.Post.ContactPhone, options.Contact) > 0)
             .Select(
                 p => new
                 {
                     p.Post,
-                    Score =  p.Score + EF.Functions.TrigramsStrictWordSimilarity(p.Post.Contact, options.Contact)
+                    Score =  p.Score + EF.Functions.TrigramsStrictWordSimilarity(p.Post.ContactPhone, options.Contact)
                 }
             ) ;
         }

@@ -16,10 +16,11 @@ export const useLoggedInState = routeLoader$(({ cookie }) => {
 });
 
 export default component$(() => {
+  const isLoggedIn = useLoggedInState();
   const location = useLocation();
   const serverSidebarState = useSidebarState();
   const sidebarOpen = useSignal(serverSidebarState.value);
-  const isLoggedIn = useSignal(useLoggedInState().value);
+
   
   const toggleSidebar = $(() => {
     sidebarOpen.value = !sidebarOpen.value;
@@ -33,7 +34,7 @@ export default component$(() => {
 
 
   return (
-    <div class="font-inter min-h-screen flex flex-col">
+    <div class={`font-inter min-h-screen ${isLoggedIn.value && !isAuthPage ? 'flex' : 'flex flex-col'}`}>
       {isAuthPage ? (
         // Logo flotante solo para las páginas de autenticación
         <a 
@@ -120,6 +121,22 @@ export default component$(() => {
               </div>
 
               <button 
+                onClick$={$(() => {
+                  // Limpiar cookies de sesión
+                  document.cookie = 'isLoggedIn=false; path=/; max-age=0';
+                  // Redirigir a login
+                  window.location.href = '/login/';
+                })}
+                class="btn btn-error w-full btn-sm text-white hover:bg-error/80 transition-all duration-300"
+                aria-label="Cerrar sesión"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                {sidebarOpen.value && <span class="text-xs">Cerrar Sesión</span>}
+              </button>
+
+              <button 
                 onClick$={toggleSidebar}
                 class="btn btn-ghost w-full btn-sm text-base-content hover:bg-base-content/10 transition-all duration-300"
                 aria-label="Toggle sidebar"
@@ -203,7 +220,7 @@ export default component$(() => {
       )}
 
       {/* Main Content */}
-      <main class={`flex-1 ${isLoggedIn.value && !isAuthPage ? 'flex' : ''}`}>
+      <main class={`flex-1 ${isLoggedIn.value && !isAuthPage ? 'overflow-y-auto' : ''}`}>
         <Slot />
       </main>
     </div>

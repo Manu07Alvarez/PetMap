@@ -8,7 +8,9 @@ using Amazon.S3;
 using PetMap.Config;
 using System.Runtime.InteropServices;
 using LinqToDB.EntityFrameworkCore;
-
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication;
+using PetMap.Services.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString =
@@ -20,10 +22,10 @@ builder.Services.AddDbContext<PetMapDbContext>(options =>
     .UseNpgsql(
         connectionString,
         o => o.UseNetTopologySuite()
+        .MapEnum<PetMap.Models.UserRole>("user_role")
         .MapEnum<PetMap.Models.PetStatus>("pet_status")
     ));
-
-
+builder.Services.AuthService();
 builder.Services.AddSingleton(S3Config.CreateS3Client(builder.Configuration));
 builder.Services.AddScoped<IFilesRepository, FilesRepository>();
 builder.Services.AddScoped<IPetRepository, PetRepository>();

@@ -1,7 +1,9 @@
 import { component$ } from "@builder.io/qwik";
 import Login from "~/components/login/login";
 export {useLoginFormLoader} from "~/components/login/LoginFormLoader";
+export {useLoggedInState} from "~/routes";
 export default component$(() => {
+
     return (
         <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/20 via-base-200 to-secondary/20 p-4">
             {/* Decorative background elements */}

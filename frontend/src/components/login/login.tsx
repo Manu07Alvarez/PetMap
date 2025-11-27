@@ -1,8 +1,8 @@
-import { component$ } from "@builder.io/qwik";
+import { component$} from "@builder.io/qwik";
 import { useForm, valiForm$ } from "@modular-forms/qwik";
 import { Input } from "../form/Input";
 import { LoginForm, LoginFormSchema, useLoginFormAction, useLoginFormLoader } from "./LoginFormLoader";
-
+export {useLoggedInState} from "~/routes";
 
 export default component$(() => {
 	const [, {Form, Field}] = useForm<LoginForm>({
@@ -10,6 +10,8 @@ export default component$(() => {
 		action: useLoginFormAction(),
 		validate: valiForm$(LoginFormSchema)
 	});
+
+
 	return (
 		<div class="card w-full max-w-md bg-base-100 shadow-2xl">
 			<div class="card-body">

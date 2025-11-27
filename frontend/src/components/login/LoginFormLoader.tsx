@@ -1,5 +1,5 @@
 import { $ } from "@builder.io/qwik";
-import { routeLoader$, server$ } from "@builder.io/qwik-city";
+import { routeLoader$, server$,  } from "@builder.io/qwik-city";
 import { formAction$, InitialValues, valiForm$ } from "@modular-forms/qwik";
 import * as v from 'valibot';
 
@@ -29,8 +29,9 @@ const cookieStore = server$(function () {
 
 
 export const useLoginFormAction = formAction$<LoginForm>(
-    async (values) => {
-			cookieStore();
+    async (values, {redirect}) => {
+        cookieStore();
+        throw redirect(302, '/');
     },
 {
     validate: $(async (values: Partial<LoginForm>) => {

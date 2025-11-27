@@ -1,6 +1,21 @@
 import { component$ } from "@builder.io/qwik";
+import { Link, routeLoader$ } from "@builder.io/qwik-city";
+import LoggedInHome from "../components/home/LoggedInHome";
+
+export const useLoggedInState = routeLoader$(({ cookie }) => {
+  const isLoggedInCookie = cookie.get('isLoggedIn');
+  return isLoggedInCookie ? isLoggedInCookie.value === 'true' : false;
+});
 
 export default component$(() => {
+  const isLoggedIn = useLoggedInState();
+
+  // Si el usuario está logueado, mostrar el dashboard
+  if (isLoggedIn.value) {
+    return <LoggedInHome />;
+  }
+
+  // Si no está logueado, mostrar la landing page
   return (
     <div>
         <section class="text-center mb-16 pt-6">
@@ -29,23 +44,23 @@ export default component$(() => {
           <span class="material-icons-outlined text-5xl text-success mb-3" style="font-size: 43px;">add_location_alt</span>
           <h3 class="text-xl font-semibold text-base-content mb-2">Encontré una Mascota</h3> 
           <p class="text-base-content/70 text-sm mb-4">Reporta una mascota que encontraste para ayudarla a regresar con su familia.</p>
-          <a href="mascotas/subir">
+          <Link href="login">
             <button class="btn btn-success text-sm text-black hover:text-white transition-colors btn-sm text-md font-semibold flex items-center space-x-2 mx-auto">
             <span class="material-icons-outlined text-base">add_circle_outline</span>
             <span>Reportar Encontrada</span>
             </button>
-          </a>
+          </Link>
           </div>
           <div class="flex-1 text-center p-6 border border-base-300 bg-base-100 rounded-lg hover:shadow-xl transition-shadow">
           <span class="material-icons-outlined text-5xl text-warning mb-3" style="font-size: 43px;">pets</span>
           <h3 class="text-xl font-semibold text-base-content mb-2">Perdí mi Mascota</h3>
           <p class="text-base-content/70 text-sm mb-4">Publica un reporte de tu mascota perdida para que la comunidad pueda ayudarte.</p>
-          <a href="mascotas/subir">
+          <Link href="login">
             <button class="btn btn-warning text-sm text-black hover:text-white transition-colors btn-sm text-md font-semibold flex items-center space-x-2 mx-auto">
             <span class="material-icons-outlined text-base">error_outline</span>
             <span>Reportar Perdida</span>
             </button>
-          </a>
+          </Link>
           </div>
           </div>
           </div>

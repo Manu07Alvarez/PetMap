@@ -8,20 +8,35 @@ namespace PetMap.Mappings
 {
     public static class PetMappers
     {
+        
+        /// <summary>
+        /// Maps the given PostPetRequest to a PetPost.
+        /// </summary>
+        /// <param name="source">The PostPetRequest to map.</param>
+        /// <returns>The mapped PetPost.</returns>
         public static PetPost MapToPetPost(this PostPetRequest source)
 
         {
             return new PetPost
             {
                 Name = source.Name,
+                DatePet = source.DatePet,
+                TypePet = source.TypePet,
                 Description = source.Description,
-                Contact = source.Contact,
+                ContactPhone = source.Contact,
+                PetStatus = (PetStatus)source.PetStatus,
                 Location = new Point(source.Location!.ToCoordinate),
                 Tags = source.Tags,
                 FileKey = source.File!.FileName
             };
         }
         
+        /// <summary>
+        /// Maps the given PetPost and a Stream to a GetPetResponse.
+        /// </summary>
+        /// <param name="source">The PetPost to map.</param>
+        /// <param name="stream_file">The Stream containing the file associated with the Pet.</param>
+        /// <returns>The mapped GetPetResponse.</returns>
         public static async Task<GetPetResponse> MapToPetResponse(this PetPost source, Stream stream_file)
         {
             
@@ -30,7 +45,11 @@ namespace PetMap.Mappings
             string file = Convert.ToBase64String(memoryStream.ToArray());
             return new GetPetResponse(
                 id: source.Id,
-                contact: source.Contact,
+                date_pet: source.DatePet,
+                type_pet: source.TypePet,
+                pet_status: (byte)source.PetStatus,
+                contact_email: source.ContactEmail ?? string.Empty,
+                contact_phone: source.ContactPhone ?? string.Empty,
                 description: source.Description,
                 stream_file: file,
                 location: new CoordinateDto(source.Location!.X, source.Location!.Y),

@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import Form from "~/components/form/Form";
-export { useFormLoader } from "~/components/PetsFormLoader";
+export { useFormLoader } from "~/components/form/PetsFormLoader";
 
 export default component$(() => {
   return (

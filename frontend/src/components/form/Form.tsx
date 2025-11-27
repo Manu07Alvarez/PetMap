@@ -4,7 +4,7 @@ import {
   valiForm$,
   useForm,
 } from '@modular-forms/qwik';
-import {PetsForm, useFormLoader, FormSchema, useFormAction, Status} from '../PetsFormLoader'
+import {PetsForm, useFormLoader, FormSchema, useFormAction, Status} from './PetsFormLoader'
 import { Input } from './Input';
 import { TextInput } from './TextInput';
 import { FileInput } from './FileInput';

@@ -19,7 +19,9 @@ builder.Services.AddDbContext<PetMapDbContext>(options =>
     options
     .UseNpgsql(
         connectionString,
-        o => o.UseNetTopologySuite()));
+        o => o.UseNetTopologySuite()
+        .MapEnum<PetMap.Models.PetStatus>("pet_status")
+    ));
 
 
 builder.Services.AddSingleton(S3Config.CreateS3Client(builder.Configuration));

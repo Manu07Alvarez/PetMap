@@ -6,6 +6,12 @@ using NpgsqlTypes;
 
 namespace PetMap.Models
 {
+    public enum PetStatus : byte
+    {
+        Lost = 1,
+        Found = 2,
+        Return = 3
+    }
 
     public class PetPost
     {
@@ -20,20 +26,30 @@ namespace PetMap.Models
         public DateTime UpdatedAt { get; set; }
 
         [Required]
-        public required string Contact { get; set; }
+        public required PetStatus PetStatus { get; set; }
+
+        [Required]
+        public required byte TypePet { get; set; }
+
+        [Required]
+        public required DateTime DatePet { get; set; }
+
+        public string? ContactPhone { get; set; }
+
+        public string? ContactEmail { get; set; }
 
         [Required]
         public required string Description { get; set; }
 
         [Column(TypeName = "geometry (point)")]
         public Point? Location { get; set; }
-        
+
         public required string FileKey { get; set; }
         public string? Name { get; set; }
 
         public int[]? Tags { get; set; } = [];
 
-       // public NpgsqlTsVector? SearchVector { get; set; }
+        // public NpgsqlTsVector? SearchVector { get; set; }
 
     }
     

@@ -1,5 +1,6 @@
 using System.Buffers.Text;
 using System.Text.Json.Serialization;
+using Bogus.DataSets;
 using NetTopologySuite.Geometries;
 using PetMap.Models;
 
@@ -7,7 +8,11 @@ namespace PetMap.Dtos
 {
     public record class  GetPetResponse(
             int id,
-            string contact,
+            string contact_phone,
+            DateTime date_pet,
+            byte type_pet,
+            byte pet_status,
+            string contact_email,
             string description,
             string stream_file,
             CoordinateDto? location,
@@ -33,7 +38,11 @@ namespace PetMap.Dtos
         string Contact,
         string Description,
         CoordinateDto? Location,
+        byte PetStatus,
         IFormFile? File,
+        string? FileKey,
+        byte TypePet,
+        DateTime DatePet,
         string? Name,
         int[]? Tags
     );

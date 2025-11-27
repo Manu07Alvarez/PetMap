@@ -1,5 +1,5 @@
 import { component$, useSignal } from "@builder.io/qwik";
-export { useFormLoader } from "~/components/PetsFormLoader";
+export { useFormLoader } from "~/components/form/PetsFormLoader";
 
 export default component$((props: { class?: string }) => {
   const dialogRef = useSignal<HTMLDialogElement>();

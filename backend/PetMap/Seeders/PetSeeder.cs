@@ -13,13 +13,15 @@ public static class PetSeeder
 		var rolesFaker = new Faker<Role>();
 		var roles = rolesFaker
 			.RuleFor(r => r.Name, f => f.PickRandom("Admin", "User", "Moderator"))
-			.Generate(2);
+			.Generate(3);
 		context.Roles.AddRange(roles);
 		var usersFaker = new Faker<User>();
 		var users = usersFaker
 			.RuleFor(u => u.UserName, f => f.Internet.UserName())
 			.RuleFor(u => u.Email, f => f.Internet.Email())
-			.RuleFor(u => u.NameLastName, f => f.Name.FullName())
+			.RuleFor(u => u.Name, f => f.Name.FirstName())
+			.RuleFor(u => u.LastName, f => f.Name.LastName())
+			.RuleFor(u => u.Disabled, f => f.Random.Bool(0.1f))
 			.Generate(50);
 		context.Users.AddRange(users);
 		context.UserRoles.AddRange(users.Select(u => new IdentityUserRole<string>

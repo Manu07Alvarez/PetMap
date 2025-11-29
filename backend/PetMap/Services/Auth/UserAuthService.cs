@@ -10,7 +10,15 @@ namespace PetMap.Services.Auth
 		{
 			services.AddAuthorization();
 			services.AddAuthentication()
-				.AddCookie();
+				.AddCookie(options =>
+				{
+					options.Cookie.Name = "auth_cookie";
+					options.Cookie.HttpOnly = true;
+					options.Cookie.SameSite = SameSiteMode.Lax;
+					options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+					options.LoginPath = "/api/auth/login";
+					options.LogoutPath = "/api/users/logout";
+				});
 			services.AddIdentityCore<User>(options =>
 			{
 				options.Password.RequireDigit = true;

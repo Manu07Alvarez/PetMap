@@ -19,7 +19,7 @@ namespace PetMap.Extensions
 				await db.Database.EnsureDeletedAsync();
 				db.Database.Migrate();
 				Console.WriteLine("Database created successfully.");
-				PetSeeder.SeedData(db); // solo si está vacía
+				await PetSeeder.SeedData(db); // solo si está vacía
 			}
 		}
 	}

@@ -60,7 +60,7 @@ else
 	app.UseExceptionHandler("/error");
 }
 
-app.MapIdentityApi<User>();
+app.CustomMapIdentityApi<User>();
 
 
 await app.RunAsync();

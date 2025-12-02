@@ -1,18 +1,22 @@
 import { component$, Slot, useSignal, $ } from "@builder.io/qwik";
-import { routeLoader$, useLocation } from "@builder.io/qwik-city";
+import { Link, routeLoader$, useLocation } from "@builder.io/qwik-city";
 import Image from '../../public/petmap.svg?jsx'
 import type { DocumentHead } from "@builder.io/qwik-city";
 import "../global.css";
 
 export const useSidebarState = routeLoader$(({ cookie }) => {
   const sidebarCookie = cookie.get('sidebarOpen');
-  return sidebarCookie ? sidebarCookie.value === 'true' : true;
+  return sidebarCookie ? sidebarCookie.value === 'true' : false;
 });
 
 
 export const useLoggedInState = routeLoader$(({ cookie }) => {
-  const isLoggedInCookie = cookie.get('isLoggedIn');
-  return isLoggedInCookie ? isLoggedInCookie.value === 'true' : false;
+  const isLoggedInCookie = cookie.get('auth_cookie');
+  console.log(isLoggedInCookie?.value);
+  if (isLoggedInCookie) {
+    return true;
+  }
+  return false;
 });
 
 export default component$(() => {
@@ -20,7 +24,7 @@ export default component$(() => {
   const location = useLocation();
   const serverSidebarState = useSidebarState();
   const sidebarOpen = useSignal(serverSidebarState.value);
-
+  
   
   const toggleSidebar = $(() => {
     sidebarOpen.value = !sidebarOpen.value;
@@ -61,7 +65,7 @@ export default component$(() => {
 
             {/* Navigation Links */}
             <nav class="flex-1 p-4 space-y-2">
-              <a 
+              <Link 
                 href="/" 
                 class={`flex items-center rounded-lg text-base-content hover:bg-base-content/10 transition-all duration-200 group ${
                   sidebarOpen.value ? 'gap-3 px-4 py-3' : 'flex-col gap-1 px-2 py-3'
@@ -73,10 +77,10 @@ export default component$(() => {
                 <span class={`font-medium whitespace-nowrap ${sidebarOpen.value ? '' : 'text-xs'}`}>
                   Inicio
                 </span>
-              </a>
+              </Link>
               
-              <a 
-                href="/mascotas/buscar" 
+              <Link 
+                href="/pets/search" 
                 class={`flex items-center rounded-lg text-base-content hover:bg-base-content/10 transition-all duration-200 group ${
                   sidebarOpen.value ? 'gap-3 px-4 py-3' : 'flex-col gap-1 px-2 py-3'
                 }`}
@@ -87,10 +91,10 @@ export default component$(() => {
                 <span class={`font-medium whitespace-nowrap ${sidebarOpen.value ? '' : 'text-xs'}`}>
                   Buscar
                 </span>
-              </a>
+              </Link>
 
-              <a 
-                href="/mascotas/subir" 
+              <Link 
+                href="/user/post" 
                 class={`flex items-center rounded-lg text-base-content hover:bg-base-content/10 transition-all duration-200 group ${
                   sidebarOpen.value ? 'gap-3 px-4 py-3' : 'flex-col gap-1 px-2 py-3'
                 }`}
@@ -101,7 +105,7 @@ export default component$(() => {
                 <span class={`font-medium whitespace-nowrap ${sidebarOpen.value ? '' : 'text-xs'}`}>
                   Post a Pet
                 </span>
-              </a>
+              </Link>
             </nav>
 
             {/* Bottom Actions */}

@@ -1,21 +1,15 @@
 import { component$ } from "@builder.io/qwik";
-import { Link, routeLoader$ } from "@builder.io/qwik-city";
-import LoggedInHome from "../components/home/LoggedInHome";
+import { Link, RequestEvent } from "@builder.io/qwik-city";
 
-export const useLoggedInState = routeLoader$(({ cookie }) => {
-  const isLoggedInCookie = cookie.get('isLoggedIn');
-  return isLoggedInCookie ? isLoggedInCookie.value === 'true' : false;
-});
-
-export default component$(() => {
-  const isLoggedIn = useLoggedInState();
-
-  // Si el usuario está logueado, mostrar el dashboard
-  if (isLoggedIn.value) {
-    return <LoggedInHome />;
+export const onGet = async ({cookie,redirect}: RequestEvent) => {
+  const isLoggedInCookie = cookie.get('auth_cookie');
+  if (isLoggedInCookie) {
+    throw redirect(302, '/user/');
   }
+}
+export default component$(() => {
 
-  // Si no está logueado, mostrar la landing page
+
   return (
     <div>
         <section class="text-center mb-16 pt-6">

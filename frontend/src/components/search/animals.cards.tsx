@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import { Link } from "@builder.io/qwik-city";
 
 // Sample data - replace with actual data from API/props
 const animals = [
@@ -111,9 +112,9 @@ export default component$(() => {
 								<span class="font-semibold">Date:</span> {animal.date}
 							</p>
 						</div>
-						<div class="card-actions justify-end mt-2">
+						<Link href={`/pets/${animal.id}`} class="card-actions justify-end mt-2">
 							<button class="btn btn-primary btn-sm">View Details</button>
-						</div>
+						</Link>
 					</div>
 				</div>
 			))}

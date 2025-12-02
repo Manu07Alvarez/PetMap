@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import { Link } from "@builder.io/qwik-city";
 
 export default component$(() => {
   // Datos de ejemplo - en producción estos vendrían del backend
@@ -92,12 +93,12 @@ export default component$(() => {
               </svg>
               Mis Publicaciones
             </h2>
-            <a href="/mascotas/subir" class="btn btn-primary btn-sm">
+            <Link href="/user/post" class="btn btn-primary btn-sm">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
               </svg>
               Nueva Publicación
-            </a>
+            </Link>
           </div>
 
           {userPosts.length > 0 ? (
@@ -162,9 +163,9 @@ export default component$(() => {
                           </svg>
                           Editar
                         </button>
-                        <a href={`/mascotas/${post.id}`} class="btn btn-sm btn-primary">
+                        <Link href={`/pets/${post.id}`} class="btn btn-sm btn-primary">
                           Ver Detalles
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -193,16 +194,16 @@ export default component$(() => {
               </svg>
               Reportes Recientes
             </h2>
-            <a href="/mascotas/buscar" class="btn btn-accent btn-sm">
+            <Link href="/pets/search" class="btn btn-accent btn-sm">
               Ver Todos
-            </a>
+            </Link>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {recentPets.map((pet) => (
-              <a 
+              <Link 
                 key={pet.id}
-                href={`/mascotas/${pet.id}`}
+                href={`/pets/${pet.id}`}
                 class="card bg-base-200 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-base-content/10 overflow-hidden group cursor-pointer"
               >
                 <figure class="relative overflow-hidden h-48">
@@ -239,7 +240,7 @@ export default component$(() => {
                     })}
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </section>

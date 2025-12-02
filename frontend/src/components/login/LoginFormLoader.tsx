@@ -1,40 +1,11 @@
-import { $ } from "@builder.io/qwik";
-import { routeLoader$, server$,  } from "@builder.io/qwik-city";
-import { formAction$, InitialValues, valiForm$ } from "@modular-forms/qwik";
 import * as v from 'valibot';
 
 export const LoginFormSchema = v.object({
-    username: v.string(),
-    password: v.string(),
+    email: v.pipe(v.string(), v.email('Ingresa un email válido')),
+    password: v.pipe(v.string(), v.minLength(1, 'La contraseña es requerida')),
 });
 
 export type LoginForm = {
-    username: string;
+    email: string;
     password: string;
 }
-
-export const useLoginFormLoader = routeLoader$<InitialValues<LoginForm>>(() => {
-	return {
-		username: '',
-		password: '',
-	};
-});
-
-const cookieStore = server$(function () {
-	this.cookie.set('isLoggedIn', 'true', {
-		path: '/',
-		maxAge: 31536000,
-	});
-});
-
-
-export const useLoginFormAction = formAction$<LoginForm>(
-    async (values, {redirect}) => {
-        cookieStore();
-        throw redirect(302, '/');
-    },
-{
-    validate: $(async (values: Partial<LoginForm>) => {
-        return valiForm$(LoginFormSchema)(values);
-    }),
-});

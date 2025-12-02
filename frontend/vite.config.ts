@@ -8,6 +8,7 @@ import { qwikVite } from "@builder.io/qwik/optimizer";
 import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
+import fs from "fs";
 
 type PkgDep = Record<string, string>;
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
@@ -48,6 +49,10 @@ export default defineConfig(({ command, mode }): UserConfig => {
     //     : undefined,
 
     server: {
+      https: {
+        key: fs.readFileSync("localhost+2-key.pem"),
+        cert: fs.readFileSync("localhost+2.pem"),
+      },
       headers: {
         // Don't cache the server response in dev mode
         "Cache-Control": "public, max-age=0",

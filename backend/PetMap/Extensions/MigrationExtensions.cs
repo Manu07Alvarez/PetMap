@@ -1,4 +1,6 @@
+using LinqToDB.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using PetMap.Context;
 using PetMap.Seeders;
 

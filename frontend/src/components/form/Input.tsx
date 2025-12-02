@@ -10,10 +10,10 @@ type InputProps = {
   value: string | undefined;
   error: string;
   required?: boolean;
-  ref: QRL<(element: HTMLInputElement) => void>;
-  onInput$: (event: Event, element: HTMLInputElement) => void;
-  onChange$: (event: Event, element: HTMLInputElement) => void;
-  onBlur$: (event: Event, element: HTMLInputElement) => void;
+  ref?: QRL<(element: HTMLInputElement) => void>;
+  onInput$?: (event: Event, element: HTMLInputElement) => void;
+  onChange$?: (event: Event, element: HTMLInputElement) => void;
+  onBlur$?: (event: Event, element: HTMLInputElement) => void;
 };
 
 export const Input = component$(

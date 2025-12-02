@@ -24,15 +24,30 @@ export default component$(() => {
 				<Form>
 					<div class="space-y-4">
 						<div class="form-control">
-							<Field name="username">
+							<Field name="firstName">
 								{(field, props) => (
 									<Input
 										{...props}
 										type="text"
-										name="username"
+										name="firstName"
 										class="input input-bordered w-full focus:input-primary"
-										placeholder="Ingresa tu usuario"
-										label="Usuario"
+										placeholder="Ingresa tu nombre"
+										label="Nombre"
+										value={field.value}
+										error={field.error}
+										required
+									/>
+								)}
+							</Field>
+							<Field name="lastName">
+								{(field, props) => (
+									<Input
+										{...props}
+										type="text"
+										name="lastName"
+										class="input input-bordered w-full focus:input-primary"
+										placeholder="Ingresa tu apellido"
+										label="Apellido"
 										value={field.value}
 										error={field.error}
 										required

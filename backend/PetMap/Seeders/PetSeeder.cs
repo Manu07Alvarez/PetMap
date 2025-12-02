@@ -24,12 +24,12 @@ public static class PetSeeder
 			.RuleFor(u => u.Disabled, f => f.Random.Bool(0.1f))
 			.Generate(50);
 		context.Users.AddRange(users);
-		context.UserRoles.AddRange(users.Select(u => new IdentityUserRole<string>
+		context.UserRoles.AddRange(users.Select(u => new UserRoles
 		{
 			UserId = u.Id,
 			RoleId = roles.First().Id
 		}));
-		context.UserRoles.AddRange(users.Take(5).Select(u => new IdentityUserRole<string>
+		context.UserRoles.AddRange(users.Take(5).Select(u => new UserRoles
 		{
 			UserId = u.Id,
 			RoleId = roles.Last().Id

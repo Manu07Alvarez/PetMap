@@ -10,11 +10,11 @@ namespace PetMap.Services.Auth
 		{
 			services.AddAuthorization();
 			services.AddAuthentication()
-				.AddCookie(options =>
+				.AddCookie("Identity.Application",options =>
 				{
 					options.Cookie.Name = "auth_cookie";
 					options.Cookie.HttpOnly = true;
-					options.Cookie.SameSite = SameSiteMode.Lax;
+					options.Cookie.SameSite = SameSiteMode.None;
 					options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 					options.LoginPath = "/api/auth/login";
 					options.LogoutPath = "/api/users/logout";
@@ -28,13 +28,13 @@ namespace PetMap.Services.Auth
 				options.Password.RequiredLength = 6;
 				options.User.RequireUniqueEmail = true;
 
-				options.SignIn.RequireConfirmedEmail = true;
+				options.SignIn.RequireConfirmedEmail = false;
 				
 			})
-				.AddApiEndpoints()
-				.AddRoles<Role>()
-				.AddDefaultTokenProviders()
-				.AddEntityFrameworkStores<PetMapDbContext>();
+			.AddApiEndpoints()
+			.AddRoles<Role>()
+			.AddDefaultTokenProviders()
+			.AddEntityFrameworkStores<PetMapDbContext>();
 			return services;
 		}
 	}

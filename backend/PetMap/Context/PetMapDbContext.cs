@@ -21,16 +21,9 @@ namespace PetMap.Context
 			modelBuilder.Entity<User>()
 			.ToTable("Users");
 
-			modelBuilder.Entity<IdentityRole>(entity =>
+			modelBuilder.Entity<Role>(entity =>
 			{
 				entity.ToTable(name: "Role");
-			});
-
-			modelBuilder.Entity<IdentityUserRole<string>>(entity =>
-			{
-				entity.ToTable("UserRoles");
-				//in case you chagned the TKey type
-				//  entity.HasKey(key => new { key.UserId, key.RoleId });
 			});
 
 			modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
@@ -57,10 +50,27 @@ namespace PetMap.Context
 				// entity.HasKey(key => new { key.UserId, key.LoginProvider, key.Name });
 			});
 
+			modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+			{
+				entity.ToTable("UserRoles");
+			});
+
 			modelBuilder.Entity<User>()
 			.HasMany(e => e.Roles)
 			.WithMany(e => e.Users)
-			.UsingEntity<UserRoles>();
+			.UsingEntity<IdentityUserRole<string>>(
+				j => j
+					.HasOne<Role>()
+					.WithMany()
+					.HasForeignKey(ur => ur.RoleId)
+					.IsRequired(),
+				j => j
+					.HasOne<User>()
+					.WithMany()
+					.HasForeignKey(ur => ur.UserId)
+					.IsRequired()
+			);
+
 
 			modelBuilder.Entity<User>()
 			.HasMany(e => e.Pets)

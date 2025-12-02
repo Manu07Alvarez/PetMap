@@ -8,19 +8,32 @@ using LinqToDB.EntityFrameworkCore;
 using PetMap.Services.Auth;
 using PetMap.Extensions;
 using PetMap.Models;
-
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 var connectionString =
     builder.Configuration.GetConnectionString("DefaultConnection")
         ?? throw new InvalidOperationException("Connection string"
         + "'DefaultConnection' not found.");
 builder.Services.AddDbContext<PetMapDbContext>(options =>
-    options
-    .UseNpgsql(
-        connectionString,
-        o => o.UseNetTopologySuite()
-        .MapEnum<PetStatus>("pet_status")
-    ));
+	options
+	.UseNpgsql(
+		connectionString,
+		o => o.UseNetTopologySuite()
+		.MapEnum<PetStatus>("pet_status")
+));
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy(name: MyAllowSpecificOrigins,
+		policy =>
+		{
+			policy.WithOrigins(builder.Configuration["frontend:url"]!)
+				.AllowAnyHeader()
+				.AllowAnyMethod()
+				.AllowCredentials()
+				.SetIsOriginAllowedToAllowWildcardSubdomains();
+		});
+});
+
 builder.Services.AuthService();
 builder.Services.AddSingleton(S3Config.CreateS3Client(builder.Configuration));
 builder.Services.AddScoped<IFilesRepository, FilesRepository>();
@@ -41,6 +54,7 @@ LinqToDBForEFTools.Initialize();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 var app = builder.Build();
 
+app.UseCors(MyAllowSpecificOrigins);
 app.MapControllers();
 if (app.Environment.IsDevelopment())
 {
@@ -61,6 +75,6 @@ else
 }
 
 app.CustomMapIdentityApi<User>();
-
-
+app.Urls.Add("http://localhost:5000");
+app.Urls.Add("https://localhost:5001");
 await app.RunAsync();
